@@ -7,7 +7,7 @@ import {
   StyledNameWrapper,
   StyledProductName,
   StyledSiderLayout,
-} from "./sidebar-layout.style";
+} from "./sidebar.style";
 
 export function SidebarLayout() {
   type MenuItem = Required<MenuProps>["items"][number];

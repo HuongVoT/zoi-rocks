@@ -6,7 +6,7 @@ import {
   StyledLogoColumn,
   StyledPageNameColumn,
   UserAvatarStyle,
-} from "./header-layout.style";
+} from "./header.style";
 
 export function HeaderLayout() {
   return (
