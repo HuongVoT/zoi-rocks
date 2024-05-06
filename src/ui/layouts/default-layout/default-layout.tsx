@@ -1,6 +1,10 @@
-import { Col, Row } from "antd";
 import { ReactNode } from "react";
 import { HeaderLayout, SidebarLayout } from "../../components";
+import {
+  StyledBody,
+  StyledContent,
+  StyledLayout,
+} from "./default-layout.style";
 
 interface DefaultLayoutProps {
   children: ReactNode;
@@ -8,16 +12,12 @@ interface DefaultLayoutProps {
 
 export function DefaultLayout(props: DefaultLayoutProps) {
   return (
-    <Row className="app">
-      <Col span={4} className="sidebar">
-        <SidebarLayout />
-      </Col>
-      <Col span={20} className="body">
-        <Row className="header">
-          <HeaderLayout />
-        </Row>
-        <Row className="content">{props.children}</Row>
-      </Col>
-    </Row>
+    <StyledLayout>
+      <SidebarLayout />
+      <StyledContent>
+        <HeaderLayout />
+        <StyledBody>{props.children}</StyledBody>
+      </StyledContent>
+    </StyledLayout>
   );
 }

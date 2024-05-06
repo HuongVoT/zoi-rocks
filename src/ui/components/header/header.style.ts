@@ -1,30 +1,28 @@
-import { Col } from "antd";
-import React from "react";
+import { Header } from "antd/es/layout/layout";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const StyledHeaderLayout = styled.div`
+export const StyledHeaderLayout = styled(Header)`
   position: fixed;
   top: 0;
   right: 0;
-  left: 0;
   height: var(--header-height);
   line-height: var(--header-height);
-  width: 100%;
+  width: 80vw;
+  background-color: transparent;
 `;
 
-export const StyledLogoColumn = styled(Col)`
-  z-index: 0;
-`;
-
-export const StyledPageNameColumn = styled(Col)`
-  padding: 20px;
-  color: var(--primary-dark-color);
-  font-weight: bold;
-  font-size: 38px;
+export const StyledPageName = styled.div`
+  font-size: 32px;
   text-transform: uppercase;
+  font-weight: 800;
+  color: var(--primary-dark-color);
 `;
 
-export const UserAvatarStyle: React.CSSProperties = {
-  color: "#000",
-  fontSize: "24px",
-};
+export const StyledUserAvatar = styled(Link)`
+  position: fixed;
+  top: 0;
+  right: 40px;
+  font-size: 24px;
+  color: #000;
+`;
