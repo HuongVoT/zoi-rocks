@@ -1,0 +1,111 @@
+image: node:20
+
+variables:
+  MASTER: 'master'
+  DEVELOP: 'dev'
+
+stages:
+  - install
+  - lint
+  - build
+  - deploy
+
+before_script:
+  - cp ${ENV_FILE} .env
+  - npm install
+
+install-job-dev:
+  stage: install
+  environment: development
+  tags:
+    - thong-macos
+  rules:
+    - if: $CI_COMMIT_BRANCH != 'master'
+  script:
+    - echo "DEVELOPMENT - Installing Dependencies...."
+    - echo "Building React App...."
+
+lint-job-dev:
+  stage: lint
+  environment: development
+  tags:
+    - thong-macos
+  rules:
+    - if: $CI_COMMIT_BRANCH != 'master'
+  script:
+    - echo "DEVELOPMENT - Running Linting...."
+    - npm run lint
+
+build-job-dev:
+  stage: build
+  environment: development
+  artifacts:
+    paths:
+      - ./dist
+  tags:
+    - thong-macos
+  rules:
+    - if: $CI_COMMIT_BRANCH != 'master'
+  script:
+    - echo "DEVELOPMENT - Building React App...."
+    - npm run build
+
+deploy-job-dev:
+  stage: deploy
+  environment: development
+  tags:
+    - thong-macos
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'develop'
+  needs: [install-job-dev, lint-job-dev, build-job-dev]
+  script:
+    echo "Deploying to DEVELOPMENT environment...";
+    serverless deploy --verbose --stage $DEVELOP;
+
+install-job-prod:
+  stage: install
+  environment: production
+  tags:
+    - thong-macos
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
+  script:
+    - echo "PRODUCTION - Installing Dependencies...."
+    - echo "Building React App...."
+
+lint-job-prod:
+  stage: lint
+  environment: production
+  tags:
+    - thong-macos
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
+  script:
+    - echo "PRODUCTION - Running Linting...."
+    - npm run lint
+
+build-job-prod:
+  stage: build
+  environment: production
+  artifacts:
+    paths:
+      - ./dist
+  tags:
+    - thong-macos
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
+  script:
+    - echo "PRODUCTION - Building React App...."
+    - npm run build
+
+deploy-job-prod:
+  stage: deploy
+  environment: production
+  tags:
+    - thong-macos
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
+  needs: [install-job-prod, lint-job-prod, build-job-prod]
+  script:
+    echo "Deploying to PRODUCTION environment...";
+    serverless deploy --verbose --stage $MASTER;
