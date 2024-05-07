@@ -1,13 +1,15 @@
+import Sider from "antd/es/layout/Sider";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const StyledSiderLayout = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: var(--primary-color);
-  border-bottom-right-radius: var(--radius-border);
-  border-top-right-radius: var(--radius-border);
+export const StyledSider = styled(Sider)`
+  width: 20vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: var(--primary-color) !important;
   .ant-menu-item {
     border-radius: var(--radius-border);
   }
@@ -32,13 +34,13 @@ export const StyledNameWrapper = styled(Link)`
   justify-content: center;
   align-items: flex-end;
   img {
-    height: 50px;
+    height: 46px;
   }
   span {
     height: 30px;
     align-self: center;
     color: var(--primary-dark-color);
-    font-size: 30px;
+    font-size: 24px;
     text-transform: uppercase;
     font-weight: 800;
   }

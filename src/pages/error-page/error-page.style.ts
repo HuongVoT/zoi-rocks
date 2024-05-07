@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const StyledErrorPage = styled.div`
+  width: 100vw;
   text-align: center;
-  margin: 0 40vw;
   h1 {
     font-size: 36px;
     font-weight: bold;
