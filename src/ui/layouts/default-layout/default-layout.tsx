@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { HeaderLayout, SidebarLayout } from "../../components";
+import { OpenKudosFormContainer } from "../../containers";
 import {
   StyledBody,
   StyledContent,
@@ -18,6 +19,7 @@ export function DefaultLayout(props: DefaultLayoutProps) {
         <HeaderLayout />
         <StyledBody>{props.children}</StyledBody>
       </StyledContent>
+      <OpenKudosFormContainer />
     </StyledLayout>
   );
 }
