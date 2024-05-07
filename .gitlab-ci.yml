@@ -17,8 +17,6 @@ before_script:
 install-job-dev:
   stage: install
   environment: development
-  tags:
-    - thong-macos
   rules:
     - if: $CI_COMMIT_BRANCH != 'master'
   script:
@@ -28,8 +26,6 @@ install-job-dev:
 lint-job-dev:
   stage: lint
   environment: development
-  tags:
-    - thong-macos
   rules:
     - if: $CI_COMMIT_BRANCH != 'master'
   script:
@@ -42,8 +38,7 @@ build-job-dev:
   artifacts:
     paths:
       - ./dist
-  tags:
-    - thong-macos
+    expire_in: 15 mins
   rules:
     - if: $CI_COMMIT_BRANCH != 'master'
   script:
@@ -53,8 +48,6 @@ build-job-dev:
 deploy-job-dev:
   stage: deploy
   environment: development
-  tags:
-    - thong-macos
   rules:
     - if: $CI_COMMIT_BRANCH == 'develop'
   needs: [install-job-dev, lint-job-dev, build-job-dev]
@@ -65,8 +58,6 @@ deploy-job-dev:
 install-job-prod:
   stage: install
   environment: production
-  tags:
-    - thong-macos
   rules:
     - if: $CI_COMMIT_BRANCH == 'master'
   script:
@@ -76,8 +67,6 @@ install-job-prod:
 lint-job-prod:
   stage: lint
   environment: production
-  tags:
-    - thong-macos
   rules:
     - if: $CI_COMMIT_BRANCH == 'master'
   script:
@@ -90,8 +79,7 @@ build-job-prod:
   artifacts:
     paths:
       - ./dist
-  tags:
-    - thong-macos
+    expire_in: 15 mins
   rules:
     - if: $CI_COMMIT_BRANCH == 'master'
   script:
@@ -101,8 +89,6 @@ build-job-prod:
 deploy-job-prod:
   stage: deploy
   environment: production
-  tags:
-    - thong-macos
   rules:
     - if: $CI_COMMIT_BRANCH == 'master'
   needs: [install-job-prod, lint-job-prod, build-job-prod]
