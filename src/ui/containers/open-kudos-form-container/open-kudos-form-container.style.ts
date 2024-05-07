@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const StyledOpenKudosFormContainer = styled.div`
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 48px;
+  right: 24px;
   height: 400px;
   overflow: "hidden";
 
