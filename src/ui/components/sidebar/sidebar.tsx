@@ -6,8 +6,8 @@ import {
   SelectionStyle,
   StyledNameWrapper,
   StyledProductName,
-  StyledSiderLayout,
-} from "./sidebar-layout.style";
+  StyledSider,
+} from "./sidebar.style";
 
 export function SidebarLayout() {
   type MenuItem = Required<MenuProps>["items"][number];
@@ -30,7 +30,7 @@ export function SidebarLayout() {
     },
   ];
   return (
-    <StyledSiderLayout>
+    <StyledSider width="20vw">
       <StyledProductName>
         <StyledNameWrapper to="/">
           <img src="Zoi_Logo_Dark_Blue_RGB_High.png" alt="Zoi" />
@@ -43,6 +43,6 @@ export function SidebarLayout() {
         mode="inline"
         items={menuSelections}
       />
-    </StyledSiderLayout>
+    </StyledSider>
   );
 }
