@@ -75,3 +75,13 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.ant-tree-select-dropdown .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  border: 1px solid var(--primary-dark-color) !important;
+}
+
+.ant-tree-select-dropdown .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner::after {
+  border-color: var(--primary-dark-color) !important;
+}
