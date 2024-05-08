@@ -5,17 +5,11 @@ import { RootState } from "../store";
 import { userAction } from "../action";
 import { models } from "../../domain";
 import { ListUsersOutputDTO } from "../../domain/dtos";
-
-export enum UserActionStatus {
-  INIT = "INIT",
-  PENDING = "PENDING",
-  SUCCESS = "SUCCESS",
-  ERROR = "ERROR",
-}
+import { ActionStatus } from "../../utils";
 
 interface UserState {
   users: models.User[];
-  listUsersStatus: UserActionStatus;
+  listUsersStatus: ActionStatus;
   loading: boolean;
   error: {
     message?: string;
@@ -29,7 +23,7 @@ interface UserState {
 
 const initialState: UserState = {
   users: [],
-  listUsersStatus: UserActionStatus.INIT,
+  listUsersStatus: ActionStatus.INIT,
   loading: false,
   error: {},
   pagination: {
@@ -48,7 +42,7 @@ export const userSlice = createSlice({
       userAction.listUsers.fulfilled,
       (state, action: PayloadAction<ListUsersOutputDTO>) => {
         state.users = action.payload.users;
-        state.listUsersStatus = UserActionStatus.SUCCESS;
+        state.listUsersStatus = ActionStatus.SUCCESS;
         state.loading = false;
         state.error = {};
         state.pagination = action.payload.pagination;
@@ -56,12 +50,12 @@ export const userSlice = createSlice({
     );
     builder.addCase(userAction.listUsers.pending, (state) => {
       state.loading = true;
-      state.listUsersStatus = UserActionStatus.PENDING;
+      state.listUsersStatus = ActionStatus.PENDING;
       state.error = {};
     });
     builder.addCase(userAction.listUsers.rejected, (state, action) => {
       state.error = { message: "Something went wrong!" };
-      state.listUsersStatus = UserActionStatus.ERROR;
+      state.listUsersStatus = ActionStatus.ERROR;
       state.loading = false;
       state.error.message = action.payload as string;
     });

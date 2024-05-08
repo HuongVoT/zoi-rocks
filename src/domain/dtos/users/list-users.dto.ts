@@ -1,4 +1,4 @@
-import type { User } from "../models";
+import type { User } from "../../models";
 export interface ListUsersDTO {
   pageSize: number;
   currentPage: number;
