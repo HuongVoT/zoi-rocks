@@ -4,73 +4,61 @@ export function KudosWhy() {
   const categories = [
     {
       title: "Professional and methodical competence",
-      value: "professional-and-methodical",
+      value: "Professional and methodical competence",
       checkable: false,
       children: [
-        { title: "Professional", value: "professional" },
-        { title: "Well organized", value: "well-organized" },
+        { title: "Professional", value: "Professional" },
+        { title: "Well organized", value: "Well organized" },
       ],
     },
     {
       title: "Willingness to change and innovation",
-      value: "willingness-to-change-and-innovation",
+      value: "Willingness to change and innovation",
       checkable: false,
       children: [
-        { title: "Learnability", value: "willingness-to-learn " },
-        { title: "Adaptability", value: "willingness-to-change" },
+        { title: "Eager to learn", value: "Eager to learn" },
+        { title: "Flexible", value: "Flexible" },
       ],
     },
     {
       title: "Entrepreneurship and capacity utilization",
-      value: "entrepreneurship-and-capacity-utilization",
+      value: "Entrepreneurship and capacity utilization",
       checkable: false,
       children: [
         {
-          title: "Business mindset",
-          value: "entrepreneurial-thinking-and-acting ",
+          title: "Role model",
+          value: "Role model",
         },
         {
-          title: "Proactivity and Risk-taking",
-          value: "initiative-and-willingness-to-take-risks ",
-        },
-        {
-          title: "Working style",
-          value: "working-style",
+          title: "Adventurous",
+          value: "Adventurous",
         },
       ],
     },
     {
       title: "Customer and market orientation",
-      value: "customer-and-market-orientation",
+      value: "Customer and market orientation",
       checkable: false,
       children: [
         {
-          title: "Customer focus",
-          value: "customer-orientation-and-enthusiasm",
+          title: "Customer centric",
+          value: "Customer centric",
         },
-        { title: "Market focus", value: "market-orientation" },
+        { title: "Market oriented", value: "Market oriented" },
       ],
     },
     {
       title: "Social and leadership competence",
-      value: "social-and-leadership-competence",
+      value: "Social and leadership competence",
       checkable: false,
       children: [
         {
-          title: "Communication skills",
-          value: "contact-and-expression-skills",
+          title: "Enthusiastic",
+          value: "Enthusiastic",
         },
         {
-          title: "Trustworthiness and Understanding",
-          value: "credibility-and-empathy ",
-        },
-        {
-          title: "Managing conflicts",
-          value: "dealing-with-contradictions",
-        },
-        {
-          title: "Collaborative communication",
-          value: "communication-and-collaboration",
+          title: "Reliable",
+          value: "Reliable",
         },
       ],
     },
