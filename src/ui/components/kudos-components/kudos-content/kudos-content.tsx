@@ -17,6 +17,8 @@ export function KudosContent() {
           fontSize: 12,
           height: 100,
           resize: "none",
+          borderColor: "var(--primary-dark-color)",
+          boxShadow: "none",
         }}
         placeholder="Tell us more about this person."
       />

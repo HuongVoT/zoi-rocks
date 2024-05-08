@@ -1,4 +1,4 @@
-import { StyledText, TreeSelect, KudosWhyWrapper } from "../kudos-style";
+import { StyledText, StyledTreeSelect, KudosWhyWrapper } from "../kudos-style";
 
 export function KudosWhy() {
   const categories = [
@@ -68,7 +68,7 @@ export function KudosWhy() {
       <StyledText>
         Why is that? <StyledText type="danger">*</StyledText>
       </StyledText>
-      <TreeSelect
+      <StyledTreeSelect
         dropdownStyle={{
           maxHeight: 300,
           width: 300,

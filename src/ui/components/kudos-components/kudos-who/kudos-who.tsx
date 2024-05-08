@@ -1,4 +1,4 @@
-import { StyledText, Select, KudosWhoWrapper } from "../kudos-style";
+import { StyledText, StyledSelect, KudosWhoWrapper } from "../kudos-style";
 import type { SelectProps } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
@@ -54,7 +54,7 @@ export function KudosWho() {
       <StyledText>
         Who is it? <StyledText type="danger">*</StyledText>
       </StyledText>
-      <Select
+      <StyledSelect
         dropdownStyle={{
           maxHeight: 300,
           width: 400,
