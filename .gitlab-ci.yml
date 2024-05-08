@@ -38,7 +38,7 @@ build-job-dev:
   artifacts:
     paths:
       - ./dist
-    expire_in: 15 mins
+    expire_in: 15 min
   rules:
     - if: $CI_COMMIT_BRANCH != 'master'
   script:
@@ -79,7 +79,7 @@ build-job-prod:
   artifacts:
     paths:
       - ./dist
-    expire_in: 15 mins
+    expire_in: 15 min
   rules:
     - if: $CI_COMMIT_BRANCH == 'master'
   script:
