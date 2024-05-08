@@ -1,4 +1,4 @@
-import { StyledText, TreeSelect } from "../kudos-style";
+import { StyledText, TreeSelect, KudosWhyWrapper } from "../kudos-style";
 
 export function KudosWhy() {
   const categories = [
@@ -16,8 +16,8 @@ export function KudosWhy() {
       value: "willingness-to-change-and-innovation",
       checkable: false,
       children: [
-        { title: "Innovative", value: "innovative" },
-        { title: "Open to change", value: "open-to-change" },
+        { title: "Learnability", value: "willingness-to-learn " },
+        { title: "Adaptability", value: "willingness-to-change" },
       ],
     },
     {
@@ -25,8 +25,18 @@ export function KudosWhy() {
       value: "entrepreneurship-and-capacity-utilization",
       checkable: false,
       children: [
-        { title: "Entrepreneurial", value: "entrepreneurial" },
-        { title: "Efficient", value: "efficient" },
+        {
+          title: "Business mindset",
+          value: "entrepreneurial-thinking-and-acting ",
+        },
+        {
+          title: "Proactivity and Risk-taking",
+          value: "initiative-and-willingness-to-take-risks ",
+        },
+        {
+          title: "Working style",
+          value: "working-style",
+        },
       ],
     },
     {
@@ -34,19 +44,39 @@ export function KudosWhy() {
       value: "customer-and-market-orientation",
       checkable: false,
       children: [
-        { title: "Customer oriented", value: "customer-oriented" },
-        { title: "Market oriented", value: "market-oriented" },
+        {
+          title: "Customer focus",
+          value: "customer-orientation-and-enthusiasm",
+        },
+        { title: "Market focus", value: "market-orientation" },
+      ],
+    },
+    {
+      title: "Social and leadership competence",
+      value: "social-and-leadership-competence",
+      checkable: false,
+      children: [
+        {
+          title: "Communication skills",
+          value: "contact-and-expression-skills",
+        },
+        {
+          title: "Trustworthiness and Understanding",
+          value: "credibility-and-empathy ",
+        },
+        {
+          title: "Managing conflicts",
+          value: "dealing-with-contradictions",
+        },
+        {
+          title: "Collaborative communication",
+          value: "communication-and-collaboration",
+        },
       ],
     },
   ];
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        margin: "0 0 0 20px",
-      }}
-    >
+    <KudosWhyWrapper>
       <StyledText>
         Why is that? <StyledText type="danger">*</StyledText>
       </StyledText>
@@ -65,6 +95,6 @@ export function KudosWhy() {
         maxTagCount={"responsive"}
         maxTagPlaceholder={"Multiple choices"}
       />
-    </div>
+    </KudosWhyWrapper>
   );
 }

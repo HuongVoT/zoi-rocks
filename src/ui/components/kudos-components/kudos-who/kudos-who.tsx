@@ -1,4 +1,4 @@
-import { StyledText, Select } from "../kudos-style";
+import { StyledText, Select, KudosWhoWrapper } from "../kudos-style";
 import type { SelectProps } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
@@ -50,20 +50,14 @@ export function KudosWho() {
   ];
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        margin: "0 0 0 -10px",
-      }}
-    >
+    <KudosWhoWrapper>
       <StyledText>
         Who is it? <StyledText type="danger">*</StyledText>
       </StyledText>
       <Select
         dropdownStyle={{
           maxHeight: 300,
-          width: 350,
+          width: 400,
           overflow: "auto",
           position: "fixed",
         }}
@@ -98,6 +92,6 @@ export function KudosWho() {
         }
         notFoundContent="No person found"
       />
-    </div>
+    </KudosWhoWrapper>
   );
 }

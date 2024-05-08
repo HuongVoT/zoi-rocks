@@ -1,5 +1,5 @@
 import { Form } from "antd";
-import { KudosWho, KudosWhy } from "../kudos-components";
+import { KudosWho, KudosWhy, KudosContent } from "../kudos-components";
 
 export function KudosForm() {
   return (
@@ -13,6 +13,7 @@ export function KudosForm() {
         <KudosWho />
         <KudosWhy />
       </div>
+      <KudosContent />
     </Form>
   );
 }
