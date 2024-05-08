@@ -2,9 +2,11 @@ import { Layout } from "antd";
 import styled from "styled-components";
 
 export const StyledLayout = styled(Layout)`
-  width: 100vw;
-  height: 100vh;
-  position: relative;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 `;
 
 export const StyledContent = styled(Layout.Content)`
