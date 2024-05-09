@@ -5,13 +5,40 @@ import { DefaultLayout } from "./ui";
 
 function App() {
   return (
-    <DefaultLayout>
-      <Routes>
-        <Route path="/" element={<>Home Page</>} />
-        <Route path="user" element={<>User page</>} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </DefaultLayout>
+    <Routes>
+      <Route
+        path="kudos-album"
+        element={
+          <DefaultLayout>
+            <>Kudos Albumn</>
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="rock-stars"
+        element={
+          <DefaultLayout>
+            <>Rock Stars</>
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="user"
+        element={
+          <DefaultLayout>
+            <>User</>
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <DefaultLayout>
+            <NotFoundPage />
+          </DefaultLayout>
+        }
+      />
+    </Routes>
   );
 }
 

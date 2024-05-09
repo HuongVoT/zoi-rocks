@@ -5,7 +5,7 @@ export function NotFoundPage() {
     <StyledNotFoundPage>
       <h1>404 not found</h1>
       <p>
-        Come back to <a href="/">home page</a>
+        Come back to <a href="/kudos-album">home page</a>
       </p>
     </StyledNotFoundPage>
   );

@@ -7,15 +7,18 @@ import {
 } from "./header.style";
 
 export function HeaderLayout() {
-  // const pathName = window.location.search;
   const location = useLocation();
   const pathname = location.pathname;
   const pageName = pathname.replace(/\/|-/g, " ");
 
   return (
     <StyledHeaderLayout>
-      <StyledPageName>{pageName}</StyledPageName>
-      <StyledUserAvatar to="user">
+      <StyledPageName>
+        {pathname === "/kudos-album" || pathname === "/rock-stars"
+          ? pageName
+          : ""}
+      </StyledPageName>
+      <StyledUserAvatar to="/user">
         <UserOutlined />
       </StyledUserAvatar>
     </StyledHeaderLayout>

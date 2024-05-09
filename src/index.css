@@ -40,7 +40,27 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.6vw;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2.3vw;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 2vw;
+  line-height: 1.1;
+}
+
+h4 {
+  font-size: 1.4vw;
+  line-height: 1.1;
+}
+
+h5 {
+  font-size: 1.4vw;
   line-height: 1.1;
 }
 
@@ -61,6 +81,13 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+@media screen and (min-width: 1441px) {
+  h4 {
+    font-size: 24px;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -85,3 +112,5 @@ button:focus-visible {
 .ant-tree-select-dropdown .ant-select-tree-checkbox-checked .ant-select-tree-checkbox-inner::after {
   border-color: var(--primary-dark-color) !important;
 }
+
+
