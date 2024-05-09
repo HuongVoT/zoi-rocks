@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const StyledSider = styled(Sider)`
-  width: 20vw;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   background-color: var(--primary-color) !important;
+  border-top-right-radius: var(--radius-border);
+  border-bottom-right-radius: var(--radius-border);
   .ant-menu-item {
     border-radius: var(--radius-border);
   }
@@ -18,6 +19,11 @@ export const StyledSider = styled(Sider)`
     background-color: var(--primary-dark-color) !important;
     a {
       color: #fff !important;
+    }
+  }
+  .ant-menu-title-content {
+    h4 {
+      padding-left: 2vw;
     }
   }
 `;
@@ -34,13 +40,10 @@ export const StyledNameWrapper = styled(Link)`
   justify-content: center;
   align-items: flex-end;
   img {
-    height: 46px;
+    height: 3.8vw;
   }
-  span {
-    height: 30px;
-    align-self: center;
+  h3 {
     color: var(--primary-dark-color);
-    font-size: 24px;
     text-transform: uppercase;
     font-weight: 800;
   }
@@ -50,8 +53,6 @@ export const MenuStyle: React.CSSProperties = {
   backgroundColor: "var(--primary-color)",
   marginTop: "30px",
   textTransform: "uppercase",
-  textAlign: "center",
-  fontSize: "18px",
 };
 
 export const SelectionStyle: React.CSSProperties = {

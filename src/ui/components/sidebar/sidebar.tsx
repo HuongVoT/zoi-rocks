@@ -1,6 +1,6 @@
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   MenuStyle,
   SelectionStyle,
@@ -10,21 +10,25 @@ import {
 } from "./sidebar.style";
 
 export function SidebarLayout() {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const selected = pathname.slice(1);
+
   type MenuItem = Required<MenuProps>["items"][number];
   const menuSelections: MenuItem[] = [
     {
-      key: "1",
+      key: "kudos-album",
       label: (
         <NavLink style={SelectionStyle} to="/kudos-album">
-          kudos album
+          <h4>kudos album</h4>
         </NavLink>
       ),
     },
     {
-      key: "2",
+      key: "rock-stars",
       label: (
         <NavLink style={SelectionStyle} to="/rock-stars">
-          rock stars
+          <h4>rock stars</h4>
         </NavLink>
       ),
     },
@@ -32,14 +36,15 @@ export function SidebarLayout() {
   return (
     <StyledSider width="20vw">
       <StyledProductName>
-        <StyledNameWrapper to="/">
+        <StyledNameWrapper to="/kudos-album">
           <img src="Zoi_Logo_Dark_Blue_RGB_High.png" alt="Zoi" />
-          <span>rocks</span>
+          <h3>rocks</h3>
         </StyledNameWrapper>
       </StyledProductName>
       <Menu
         style={MenuStyle}
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["kudos-album"]}
+        selectedKeys={[selected]}
         mode="inline"
         items={menuSelections}
       />
