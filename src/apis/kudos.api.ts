@@ -12,11 +12,14 @@ export class KudosApi implements IKudosRepository {
 
   async list(dto: ListKudosDTO): Promise<ListKudosOutputDTO> {
     try {
+      const { limit, lastKey, filter } = dto;
+      const params = new URLSearchParams({
+        limit: limit.toString(),
+        lastKey: lastKey ? JSON.stringify(lastKey) : "",
+        ...filter,
+      });
       const response = await this.axios.get(`${this.path}`, {
-        params: {
-          limit: dto.limit,
-          lastKey: JSON.stringify(dto.lastKey),
-        },
+        params,
       });
       const responseData = response.data as ApiResponse<ListKudosOutputDTO>;
 

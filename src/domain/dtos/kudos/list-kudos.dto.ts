@@ -8,9 +8,18 @@ export interface KudosLastKey {
   "KEY-3"?: string;
 }
 
+export interface KudosFilter {
+  category?: string;
+  startDate?: string;
+  endDate?: string;
+  sender?: string;
+  receiver?: string;
+}
+
 export interface ListKudosDTO {
   limit: number;
   lastKey?: KudosLastKey;
+  filter?: KudosFilter;
 }
 
 export interface ListKudosOutputDTO {
