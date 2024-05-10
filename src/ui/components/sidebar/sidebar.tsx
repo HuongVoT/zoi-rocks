@@ -9,30 +9,30 @@ import {
   StyledSider,
 } from "./sidebar.style";
 
-export function SidebarLayout() {
+type MenuItem = Required<MenuProps>["items"][number];
+const menuSelections: MenuItem[] = [
+  {
+    key: "kudos-album",
+    label: (
+      <NavLink style={SelectionStyle} to="/kudos-album">
+        <h4>kudos album</h4>
+      </NavLink>
+    ),
+  },
+  {
+    key: "rock-stars",
+    label: (
+      <NavLink style={SelectionStyle} to="/rock-stars">
+        <h4>rock stars</h4>
+      </NavLink>
+    ),
+  },
+];
+export function Sidebar() {
   const location = useLocation();
   const pathname = location.pathname;
   const selected = pathname.slice(1);
 
-  type MenuItem = Required<MenuProps>["items"][number];
-  const menuSelections: MenuItem[] = [
-    {
-      key: "kudos-album",
-      label: (
-        <NavLink style={SelectionStyle} to="/kudos-album">
-          <h4>kudos album</h4>
-        </NavLink>
-      ),
-    },
-    {
-      key: "rock-stars",
-      label: (
-        <NavLink style={SelectionStyle} to="/rock-stars">
-          <h4>rock stars</h4>
-        </NavLink>
-      ),
-    },
-  ];
   return (
     <StyledSider width="20vw">
       <StyledProductName>

@@ -13,7 +13,10 @@ export class KudosApi implements IKudosRepository {
   async list(dto: ListKudosDTO): Promise<ListKudosOutputDTO> {
     try {
       const response = await this.axios.get(`${this.path}`, {
-        params: dto,
+        params: {
+          limit: dto.limit,
+          lastKey: JSON.stringify(dto.lastKey),
+        },
       });
       const responseData = response.data as ApiResponse<ListKudosOutputDTO>;
 
