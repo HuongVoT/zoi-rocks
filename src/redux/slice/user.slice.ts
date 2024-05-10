@@ -10,7 +10,6 @@ import { ActionStatus } from "../../utils";
 interface UserState {
   users: models.User[];
   listUsersStatus: ActionStatus;
-  loading: boolean;
   error: {
     message?: string;
   };
@@ -24,7 +23,6 @@ interface UserState {
 const initialState: UserState = {
   users: [],
   listUsersStatus: ActionStatus.INIT,
-  loading: false,
   error: {},
   pagination: {
     pageSize: 5,
@@ -41,22 +39,19 @@ export const userSlice = createSlice({
     builder.addCase(
       userAction.listUsers.fulfilled,
       (state, action: PayloadAction<ListUsersOutputDTO>) => {
-        state.users = action.payload.users;
+        state.users = state.users.concat(action.payload.users);
         state.listUsersStatus = ActionStatus.SUCCESS;
-        state.loading = false;
         state.error = {};
         state.pagination = action.payload.pagination;
       },
     );
     builder.addCase(userAction.listUsers.pending, (state) => {
-      state.loading = true;
       state.listUsersStatus = ActionStatus.PENDING;
       state.error = {};
     });
     builder.addCase(userAction.listUsers.rejected, (state, action) => {
       state.error = { message: "Something went wrong!" };
       state.listUsersStatus = ActionStatus.ERROR;
-      state.loading = false;
       state.error.message = action.payload as string;
     });
   },

@@ -1,25 +1,23 @@
-import { ReactNode } from "react";
-import { HeaderLayout, SidebarLayout } from "../../components";
+import { Header, Sidebar } from "../../components";
 import { OpenKudosFormContainer } from "../../containers";
 import {
   StyledBody,
   StyledContent,
-  StyledLayout,
+  StyledDefaultLayout,
 } from "./default-layout.style";
+import { Outlet } from "react-router-dom";
 
-interface DefaultLayoutProps {
-  children: ReactNode;
-}
-
-export function DefaultLayout(props: DefaultLayoutProps) {
+export function DefaultLayout() {
   return (
-    <StyledLayout>
-      <SidebarLayout />
+    <StyledDefaultLayout>
+      <Sidebar />
       <StyledContent>
-        <HeaderLayout />
-        <StyledBody>{props.children}</StyledBody>
+        <Header />
+        <StyledBody>
+          <Outlet />
+        </StyledBody>
       </StyledContent>
       <OpenKudosFormContainer />
-    </StyledLayout>
+    </StyledDefaultLayout>
   );
 }

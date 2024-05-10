@@ -1,26 +1,19 @@
 import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 import { useLocation } from "react-router-dom";
-import {
-  StyledHeaderLayout,
-  StyledPageName,
-  StyledUserAvatar,
-} from "./header.style";
+import { StyledHeader, StyledPageName, StyledUserAvatar } from "./header.style";
 
-export function HeaderLayout() {
+export function Header() {
   const location = useLocation();
-  const pathname = location.pathname;
-  const pageName = pathname.replace(/\/|-/g, " ");
+  const pathName = location.pathname;
+  const pageName = pathName.replace(/\/|-/g, " ");
 
   return (
-    <StyledHeaderLayout>
-      <StyledPageName>
-        {pathname === "/kudos-album" || pathname === "/rock-stars"
-          ? pageName
-          : ""}
-      </StyledPageName>
-      <StyledUserAvatar to="/user">
-        <UserOutlined />
+    <StyledHeader>
+      <StyledPageName>{pageName}</StyledPageName>
+      <StyledUserAvatar to="user">
+        <Avatar size={50} icon={<UserOutlined />} />
       </StyledUserAvatar>
-    </StyledHeaderLayout>
+    </StyledHeader>
   );
 }

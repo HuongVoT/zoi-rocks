@@ -9,8 +9,7 @@ export const StyledSider = styled(Sider)`
   left: 0;
   bottom: 0;
   background-color: var(--primary-color) !important;
-  border-top-right-radius: var(--radius-border);
-  border-bottom-right-radius: var(--radius-border);
+  border-radius: 0 var(--radius-border) var(--radius-border) 0;
   .ant-menu-item {
     border-radius: var(--radius-border);
   }
@@ -39,6 +38,7 @@ export const StyledNameWrapper = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  gap: 15px;
   img {
     height: 3.8vw;
   }

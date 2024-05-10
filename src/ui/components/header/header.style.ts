@@ -2,10 +2,10 @@ import { Header } from "antd/es/layout/layout";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const StyledHeaderLayout = styled(Header)`
-  height: var(--header-height);
+export const StyledHeader = styled(Header)`
   line-height: var(--header-height);
   width: 80vw;
+  height: var(--header-height);
   background-color: transparent;
 `;
 
@@ -17,9 +17,8 @@ export const StyledPageName = styled.h2`
 `;
 
 export const StyledUserAvatar = styled(Link)`
-  position: fixed;
-  top: 0;
-  right: 40px;
-  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
   color: #000;
 `;
