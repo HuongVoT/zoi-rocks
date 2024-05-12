@@ -6,6 +6,8 @@ export interface UserProps {
   lastName: string;
   email: string;
   image: string | null;
+  totalSends: number;
+  totalReceives: number;
 }
 
 export class User {
@@ -27,6 +29,14 @@ export class User {
 
   public get image() {
     return this.props.image;
+  }
+
+  public get totalSends() {
+    return this.props.totalSends;
+  }
+
+  public get totalReceives() {
+    return this.props.totalReceives;
   }
 
   public toJSON(): UserProps {

@@ -6,6 +6,7 @@ import { userAction } from "../action";
 import { models } from "../../domain";
 import { ListUsersOutputDTO } from "../../domain/dtos";
 import { ActionStatus } from "../../utils";
+import { dtos } from "../../domain";
 
 interface UserState {
   users: models.User[];
@@ -14,9 +15,8 @@ interface UserState {
     message?: string;
   };
   pagination: {
-    pageSize: number;
-    currentPage: number;
-    lastEvaluatedKey: string | undefined;
+    limit: number;
+    lastKey?: dtos.UsersLastKey;
   };
 }
 
@@ -25,9 +25,7 @@ const initialState: UserState = {
   listUsersStatus: ActionStatus.INIT,
   error: {},
   pagination: {
-    pageSize: 5,
-    currentPage: 1,
-    lastEvaluatedKey: undefined,
+    limit: 5,
   },
 };
 
@@ -39,7 +37,7 @@ export const userSlice = createSlice({
     builder.addCase(
       userAction.listUsers.fulfilled,
       (state, action: PayloadAction<ListUsersOutputDTO>) => {
-        state.users = state.users.concat(action.payload.users);
+        state.users = action.payload.users;
         state.listUsersStatus = ActionStatus.SUCCESS;
         state.error = {};
         state.pagination = action.payload.pagination;

@@ -9,3 +9,7 @@ export enum ActionStatus {
   SUCCESS = "SUCCESS",
   ERROR = "ERROR",
 }
+
+export enum DefaultParams {
+  LIMIT = 5,
+}

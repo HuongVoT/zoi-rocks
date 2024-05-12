@@ -1,4 +1,5 @@
-import { StyledText, StyledTreeSelect, KudosWhyWrapper } from "../kudos-style";
+import { Form } from "antd";
+import { StyledTreeSelect } from "../kudos-style";
 
 export function KudosWhy() {
   const categories = [
@@ -64,10 +65,13 @@ export function KudosWhy() {
     },
   ];
   return (
-    <KudosWhyWrapper>
-      <StyledText>
-        Why is that? <StyledText type="danger">*</StyledText>
-      </StyledText>
+    <Form.Item
+      name={["kudos", "categories"]}
+      label="Why is it?"
+      rules={[
+        { required: true, message: "Please choose at least one category!" },
+      ]}
+    >
       <StyledTreeSelect
         dropdownStyle={{
           maxHeight: 300,
@@ -83,6 +87,6 @@ export function KudosWhy() {
         maxTagCount={"responsive"}
         maxTagPlaceholder={"Multiple choices"}
       />
-    </KudosWhyWrapper>
+    </Form.Item>
   );
 }
