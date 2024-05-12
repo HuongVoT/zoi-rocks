@@ -1,5 +1,5 @@
 import { Header, Sidebar } from "../../components";
-import { OpenKudosFormContainer } from "../../containers";
+import { KudosFormModalContainer } from "../../containers";
 import {
   StyledBody,
   StyledContent,
@@ -17,7 +17,7 @@ export function DefaultLayout() {
           <Outlet />
         </StyledBody>
       </StyledContent>
-      <OpenKudosFormContainer />
+      <KudosFormModalContainer />
     </StyledDefaultLayout>
   );
 }

@@ -1,5 +1,6 @@
 import { InvalidKudosPropsError } from "../../errors";
 import { Description } from "./description";
+import { Id } from "./id";
 
 export interface KudosProps {
   id: string;
@@ -50,6 +51,10 @@ export class Kudos {
   constructor(private props: KudosProps) {
     if (!Description.isValid(props.description)) {
       throw new InvalidKudosPropsError("Invalid description");
+    }
+
+    if (!Id.isValid(props.id)) {
+      throw new InvalidKudosPropsError("Invalid kudos ID");
     }
   }
 }
