@@ -48,7 +48,10 @@ export function KudosFormContainer({
 
   useEffect(() => {
     dispatch(
-      userAction.listUsers({ limit: DefaultParams.LIMIT, email: email }),
+      userAction.listUsers({
+        limit: DefaultParams.LIST_USERS_LIMIT,
+        email: email,
+      }),
     );
   }, [dispatch, email]);
 
@@ -101,6 +104,7 @@ export function KudosFormContainer({
           options={options}
           handleCloseModal={handleCloseModal}
           handleSendKudos={handleSendKudos}
+          createKudosStatus={kudosState.createKudosStatus}
         />
       </StyledKudosFormModal>
     </StyledKudosFormWrapper>

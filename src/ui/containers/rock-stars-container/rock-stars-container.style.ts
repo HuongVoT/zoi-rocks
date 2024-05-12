@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledRockStarContainer = styled.div`
-  margin-top: 16px;
+  padding: 16px 0;
 
   h1 {
     text-align: center;

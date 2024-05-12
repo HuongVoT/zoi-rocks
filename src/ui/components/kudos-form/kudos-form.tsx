@@ -2,7 +2,6 @@ import { Button, Form } from "antd";
 import { SelectOptionProps, KudosFormSubmitData } from "../../containers";
 import { KudosWho, KudosWhy, KudosContent } from "../kudos-components";
 import { StyledKudosFormWrapper } from "./kudos-form.style";
-import { useAppSelector } from "../../../redux";
 import { ActionStatus } from "../../../utils";
 
 interface KudosFormProps {
@@ -10,6 +9,7 @@ interface KudosFormProps {
   options: SelectOptionProps[];
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   handleSendKudos: (values: KudosFormSubmitData) => void;
+  createKudosStatus: string;
 }
 
 export function KudosForm({
@@ -17,9 +17,8 @@ export function KudosForm({
   handleSendKudos,
   options,
   setEmail,
+  createKudosStatus,
 }: KudosFormProps) {
-  const kudosState = useAppSelector((state) => state.kudos);
-
   return (
     <StyledKudosFormWrapper>
       <Form layout="vertical" onFinish={handleSendKudos}>
@@ -38,7 +37,7 @@ export function KudosForm({
             size="large"
             type="primary"
             htmlType="submit"
-            loading={kudosState.createKudosStatus === ActionStatus.PENDING}
+            loading={createKudosStatus === ActionStatus.PENDING}
           >
             Send
           </Button>

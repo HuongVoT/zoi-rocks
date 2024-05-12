@@ -34,6 +34,10 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(userAction.listUsers.pending, (state) => {
+      state.listUsersStatus = ActionStatus.PENDING;
+      state.error = {};
+    });
     builder.addCase(
       userAction.listUsers.fulfilled,
       (state, action: PayloadAction<ListUsersOutputDTO>) => {
@@ -43,10 +47,6 @@ export const userSlice = createSlice({
         state.pagination = action.payload.pagination;
       },
     );
-    builder.addCase(userAction.listUsers.pending, (state) => {
-      state.listUsersStatus = ActionStatus.PENDING;
-      state.error = {};
-    });
     builder.addCase(userAction.listUsers.rejected, (state, action) => {
       state.error = { message: "Something went wrong!" };
       state.listUsersStatus = ActionStatus.ERROR;

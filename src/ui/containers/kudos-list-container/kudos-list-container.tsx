@@ -1,5 +1,5 @@
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Divider, Empty, Skeleton, Spin, notification } from "antd";
 
 import {
@@ -9,20 +9,86 @@ import {
 } from "./kudos-list-container.style";
 import { KudosItem } from "../../components";
 import { useAppDispatch, useAppSelector, kudosAction } from "../../../redux";
-import { models } from "../../../domain";
-import { ActionStatus } from "../../../utils";
+import { models, dtos } from "../../../domain";
+import { ActionStatus, DefaultParams } from "../../../utils";
+import { FilterModalContainer } from "../kudos-filter-container";
+
+export interface FilterFormProps {
+  startDate: string;
+  endDate: string;
+  category: string;
+  receiver: string;
+  sender: string;
+}
 
 export const KudosListContainer = () => {
+  const [submittedData, setSubmittedData] = useState<FilterFormProps>({
+    startDate: "",
+    endDate: "",
+    category: "",
+    receiver: "",
+    sender: "",
+  });
+
   const [api, contextHolder] = notification.useNotification();
   const dispatch = useAppDispatch();
   const state = useAppSelector((state) => state.kudos);
   const listKudos: models.Kudos[] = state.kudos;
-
   const isPagination = state.pagination?.lastKey ? true : false;
+  const isLoadingMore = state.isLoadingMore;
+
+  const loadMore = useCallback(() => {
+    if (state.listKudosStatus === ActionStatus.PENDING) return;
+
+    const listKudosDTO: dtos.ListKudosDTO = {
+      limit: DefaultParams.LIST_KUDOS_LIMIT,
+      lastKey: state.pagination?.lastKey,
+    };
+
+    for (const [key, value] of Object.entries(submittedData)) {
+      if (value) {
+        listKudosDTO.filter = {
+          ...listKudosDTO.filter,
+          [key]: value,
+        };
+      }
+    }
+
+    dispatch(kudosAction.listKudos({ dto: listKudosDTO, isLoadingMore: true }));
+  }, [
+    dispatch,
+    state.listKudosStatus,
+    state.pagination?.lastKey,
+    submittedData,
+  ]);
 
   useEffect(() => {
-    dispatch(kudosAction.listKudos({ limit: 5 }));
+    dispatch(
+      kudosAction.listKudos({
+        dto: { limit: DefaultParams.LIST_KUDOS_LIMIT },
+        isLoadingMore: false,
+      }),
+    );
   }, [dispatch]);
+
+  useEffect(() => {
+    const listKudosDTO: dtos.ListKudosDTO = {
+      limit: DefaultParams.LIST_KUDOS_LIMIT,
+    };
+
+    for (const [key, value] of Object.entries(submittedData)) {
+      if (value) {
+        listKudosDTO.filter = {
+          ...listKudosDTO.filter,
+          [key]: value,
+        };
+      }
+    }
+
+    dispatch(
+      kudosAction.listKudos({ dto: listKudosDTO, isLoadingMore: false }),
+    );
+  }, [dispatch, submittedData]);
 
   useEffect(() => {
     if (state.listKudosStatus === ActionStatus.ERROR) {
@@ -33,55 +99,49 @@ export const KudosListContainer = () => {
     }
   }, [api, state.error.message, state.listKudosStatus]);
 
-  const loadMore = () => {
-    if (state.listKudosStatus === ActionStatus.PENDING) return;
-
-    dispatch(
-      kudosAction.listKudos({
-        limit: 5,
-        lastKey: state.pagination?.lastKey,
-      }),
-    );
-  };
-
   return (
     <>
       {contextHolder}
-      <div>Please implement filters here!</div>
-      <StyledKudosListContainer id="scrollableList">
-        {listKudos.length > 0 ? (
-          <InfiniteScroll
-            dataLength={listKudos.length}
-            next={loadMore}
-            hasMore={isPagination}
-            loader={
-              <Skeleton
-                avatar
-                paragraph={{ rows: 2 }}
-                active
-                style={{ paddingBottom: "50px" }}
+      <FilterModalContainer
+        submittedDataFilter={submittedData}
+        setSubmittedDataFilter={setSubmittedData}
+      />
+      {!isLoadingMore && state.listKudosStatus === ActionStatus.PENDING ? (
+        <StyledEmptyContainer>
+          <Spin size="large" />
+        </StyledEmptyContainer>
+      ) : (
+        <StyledKudosListContainer id="scrollableList">
+          {listKudos.length > 0 ? (
+            <InfiniteScroll
+              dataLength={listKudos.length}
+              next={loadMore}
+              hasMore={isPagination}
+              loader={
+                <Skeleton
+                  avatar
+                  paragraph={{ rows: 2 }}
+                  active
+                  style={{ paddingBottom: "50px" }}
+                />
+              }
+              endMessage={<Divider plain>No older kudos! 😘</Divider>}
+              scrollableTarget="scrollableList"
+            >
+              <StyledKudosList
+                dataSource={listKudos}
+                renderItem={(kudos) => (
+                  <KudosItem kudos={kudos as models.Kudos} />
+                )}
               />
-            }
-            endMessage={<Divider plain>No older kudos! 😘</Divider>}
-            scrollableTarget="scrollableList"
-          >
-            <StyledKudosList
-              dataSource={listKudos}
-              renderItem={(kudos) => (
-                <KudosItem kudos={kudos as models.Kudos} />
-              )}
-            />
-          </InfiniteScroll>
-        ) : (
-          <StyledEmptyContainer>
-            {state.listKudosStatus === ActionStatus.PENDING ? (
-              <Spin size="large" />
-            ) : (
+            </InfiniteScroll>
+          ) : (
+            <StyledEmptyContainer>
               <Empty />
-            )}
-          </StyledEmptyContainer>
-        )}
-      </StyledKudosListContainer>
+            </StyledEmptyContainer>
+          )}
+        </StyledKudosListContainer>
+      )}
     </>
   );
 };
