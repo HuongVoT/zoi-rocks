@@ -26,17 +26,17 @@ export const leaderboardSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(
-      leaderboardAction.getLeadeboardRockstars.fulfilled,
-      (state, action: PayloadAction<dtos.ListTopUsersOutputDTO>) => {
-        state.users = action.payload.users;
-        state.leaderboardStatus = ActionStatus.SUCCESS;
+      leaderboardAction.getLeadeboardRockstars.pending,
+      (state) => {
+        state.leaderboardStatus = ActionStatus.PENDING;
         state.error = {};
       },
     );
     builder.addCase(
-      leaderboardAction.getLeadeboardRockstars.pending,
-      (state) => {
-        state.leaderboardStatus = ActionStatus.PENDING;
+      leaderboardAction.getLeadeboardRockstars.fulfilled,
+      (state, action: PayloadAction<dtos.ListTopUsersOutputDTO>) => {
+        state.users = action.payload.users;
+        state.leaderboardStatus = ActionStatus.SUCCESS;
         state.error = {};
       },
     );

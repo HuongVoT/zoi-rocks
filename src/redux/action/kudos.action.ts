@@ -4,11 +4,17 @@ import { CreateKudosDTO, ListKudosDTO } from "../../domain/dtos";
 
 export const listKudos = createAsyncThunk(
   "kudos/list",
-  async (dto: ListKudosDTO, { rejectWithValue }) => {
+  async (
+    payload: { dto: ListKudosDTO; isLoadingMore: boolean },
+    { rejectWithValue },
+  ) => {
     try {
-      const kudos = await kudosApi.list(dto);
+      const kudos = await kudosApi.list(payload.dto);
 
-      return kudos;
+      return {
+        kudos,
+        isLoadingMore: payload.isLoadingMore,
+      };
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }

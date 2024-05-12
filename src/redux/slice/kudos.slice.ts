@@ -9,7 +9,7 @@ import {
   ListKudosOutputDTO,
   CreateKudosOutputDTO,
 } from "../../domain/dtos";
-import { ActionStatus } from "../../utils";
+import { ActionStatus, DefaultParams } from "../../utils";
 
 interface KudosState {
   kudos: models.Kudos[];
@@ -22,6 +22,7 @@ interface KudosState {
     limit: number;
     lastKey?: KudosLastKey;
   };
+  isLoadingMore: boolean;
 }
 
 const initialState: KudosState = {
@@ -30,8 +31,9 @@ const initialState: KudosState = {
   createKudosStatus: ActionStatus.INIT,
   error: {},
   pagination: {
-    limit: 10,
+    limit: DefaultParams.LIST_KUDOS_LIMIT,
   },
+  isLoadingMore: false,
 };
 
 export const kudosSlice = createSlice({
@@ -44,19 +46,31 @@ export const kudosSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      kudosAction.listKudos.fulfilled,
-      (state, action: PayloadAction<ListKudosOutputDTO>) => {
-        state.kudos = state.kudos.concat(action.payload?.kudos);
-        state.listKudosStatus = ActionStatus.SUCCESS;
-        state.error = {};
-        state.pagination = action.payload?.pagination;
-      },
-    );
-    builder.addCase(kudosAction.listKudos.pending, (state) => {
+    builder.addCase(kudosAction.listKudos.pending, (state, action) => {
       state.listKudosStatus = ActionStatus.PENDING;
+      state.isLoadingMore = action.meta.arg.isLoadingMore;
       state.error = {};
     });
+    builder.addCase(
+      kudosAction.listKudos.fulfilled,
+      (
+        state,
+        action: PayloadAction<{
+          kudos: ListKudosOutputDTO;
+          isLoadingMore: boolean;
+        }>,
+      ) => {
+        if (action.payload.isLoadingMore) {
+          state.kudos = state.kudos.concat(action.payload.kudos.kudos);
+        } else {
+          state.kudos = action.payload.kudos.kudos;
+        }
+
+        state.listKudosStatus = ActionStatus.SUCCESS;
+        state.error = {};
+        state.pagination = action.payload.kudos.pagination;
+      },
+    );
     builder.addCase(kudosAction.listKudos.rejected, (state, action) => {
       state.error = { message: "Something went wrong!" };
       state.listKudosStatus = ActionStatus.ERROR;
