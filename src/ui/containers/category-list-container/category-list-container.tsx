@@ -16,13 +16,13 @@ interface CategoryListContainerProps {
 export const CategoryListContainer = ({
   categories,
 }: CategoryListContainerProps) => {
-  const [lastIndex, setLastIndex] = useState<number>(categories.length + 1);
+  const [lastIndex, setLastIndex] = useState<number>(5);
   const [windowWidth] = useWindowSize();
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (containerRef.current) {
-      if ((windowWidth * 43) / 100 < containerRef.current.scrollWidth) {
+      if ((windowWidth * 40) / 100 < containerRef.current.scrollWidth) {
         setLastIndex((prevIndex) => prevIndex - 1);
       } else {
         setLastIndex((prevIndex) => prevIndex + 1);
