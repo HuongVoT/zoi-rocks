@@ -15,7 +15,7 @@ export function KudosFormModalContainer() {
   };
   return (
     <StyledKudosFormModalContainer>
-      <GiveKudosButton handleShowModal={handleShowModal} />
+      {!open && <GiveKudosButton handleShowModal={handleShowModal} />}
       <KudosFormContainer handleCloseModal={handleCloseModal} open={open} />
     </StyledKudosFormModalContainer>
   );

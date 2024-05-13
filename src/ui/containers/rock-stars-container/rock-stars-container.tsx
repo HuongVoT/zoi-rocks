@@ -69,7 +69,7 @@ export function RockStarsContainer() {
         defaultValue={FilterBy.RECEIVES}
         options={[
           { value: FilterBy.RECEIVES, label: "Receivers" },
-          { value: FilterBy.SENDS, label: "Givers" },
+          { value: FilterBy.SENDS, label: "Senders" },
         ]}
         onSelect={handleFilterChange}
       />
