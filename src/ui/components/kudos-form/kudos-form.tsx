@@ -1,4 +1,4 @@
-import { Button, Form } from "antd";
+import { Button, Form, FormInstance } from "antd";
 import { SelectOptionProps, KudosFormSubmitData } from "../../containers";
 import { KudosWho, KudosWhy, KudosContent } from "../kudos-components";
 import { StyledKudosFormWrapper } from "./kudos-form.style";
@@ -10,6 +10,7 @@ interface KudosFormProps {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   handleSendKudos: (values: KudosFormSubmitData) => void;
   createKudosStatus: string;
+  form: FormInstance;
 }
 
 export function KudosForm({
@@ -18,10 +19,11 @@ export function KudosForm({
   options,
   setEmail,
   createKudosStatus,
+  form,
 }: KudosFormProps) {
   return (
     <StyledKudosFormWrapper>
-      <Form layout="vertical" onFinish={handleSendKudos}>
+      <Form layout="vertical" onFinish={handleSendKudos} form={form}>
         <div className="kudos-input-wrapper">
           <div className="kudos-same-line-input">
             <KudosWho options={options} setEmail={setEmail} />
