@@ -6,7 +6,10 @@ import { StyledHeader, StyledPageName, StyledUserAvatar } from "./header.style";
 export function Header() {
   const location = useLocation();
   const pathName = location.pathname;
-  const pageName = pathName.replace(/\/|-/g, " ");
+  let pageName = "";
+  if (pathName === "/kudos-album" || pathName === "/rock-stars") {
+    pageName = pathName.replace(/\/|-/g, " ");
+  }
 
   return (
     <StyledHeader>
