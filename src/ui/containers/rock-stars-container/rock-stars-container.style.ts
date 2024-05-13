@@ -1,3 +1,4 @@
+import { Row } from "antd";
 import styled from "styled-components";
 
 export const StyledRockStarContainer = styled.div`
@@ -16,12 +17,24 @@ export const StyledRockStarContainer = styled.div`
 
   .ant-select-selector {
     border-color: var(--primary-dark-color) !important;
-    width: 200px !important;
+    width: 130px !important;
     height: 40px !important;
+    box-shadow: none !important;
   }
 
   .ant-select-single {
     height: unset;
+  }
+
+  .ant-picker-outlined {
+    border-color: var(--primary-dark-color) !important;
+    box-shadow: none !important;
+  }
+
+  .ant-picker .ant-picker-input > input {
+    border-color: var(--primary-dark-color) !important;
+    width: 100px !important;
+    height: 31px !important;
   }
 `;
 
@@ -35,4 +48,11 @@ export const StyledEmptyContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+`;
+
+export const StyledRow = styled(Row)`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-right: 20px;
 `;

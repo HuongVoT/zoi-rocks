@@ -2,13 +2,22 @@ import {
   LeaderBoardContainer,
   StyledEmptyContainer,
   StyledRockStarContainer,
+  StyledRow,
 } from "./rock-stars-container.style";
-import { RockStarList, TopRockStars } from "../../components";
+import {
+  RockStarList,
+  TopRockStars,
+  RockStarsClearButton,
+} from "../../components";
 import { useAppDispatch, useAppSelector } from "../../../redux";
 import { useEffect, useState } from "react";
 import { leaderboardAction } from "../../../redux";
-import { Select, Spin } from "antd";
+import { Select, Spin, DatePicker, Space } from "antd";
+import type { DatePickerProps } from "antd";
+import { Dayjs } from "dayjs";
 import { ActionStatus } from "../../../utils";
+
+type PickerType = "month" | "quarter" | "year";
 
 export interface RockStar {
   id: string;
@@ -23,7 +32,35 @@ enum FilterBy {
 }
 
 export function RockStarsContainer() {
+  const [type, setType] = useState<PickerType>("month");
   const [filterBy, setFilterBy] = useState<FilterBy>(FilterBy.RECEIVES);
+  const [date, setDate] = useState<Dayjs | null>(null);
+
+  const resetFilters = () => {
+    setType("month");
+    setFilterBy(FilterBy.RECEIVES);
+    setDate(null);
+  };
+
+  const handleFilterPeriodChange: DatePickerProps["onChange"] = (
+    date,
+    //TODO: Remove the eslint-disable-next-line comment, and use this variable to send the date to the backend
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    dateString,
+  ) => {
+    setDate(date);
+  };
+
+  const PickerWithType = ({ type }: { type: PickerType }) => {
+    return (
+      <DatePicker
+        picker={type}
+        onChange={handleFilterPeriodChange}
+        value={date}
+      />
+    );
+  };
+
   const rockStars = useAppSelector((state) => state.leaderboard.users).map(
     (rockstar) => {
       return {
@@ -59,20 +96,43 @@ export function RockStarsContainer() {
   const remainingRockStars = rockStars.slice(3);
   return (
     <StyledRockStarContainer>
-      <Select
-        dropdownStyle={{
-          maxHeight: 300,
-          overflow: "auto",
-          position: "fixed",
-          border: "1px solid var(--primary-dark-color)",
-        }}
-        defaultValue={FilterBy.RECEIVES}
-        options={[
-          { value: FilterBy.RECEIVES, label: "Receivers" },
-          { value: FilterBy.SENDS, label: "Senders" },
-        ]}
-        onSelect={handleFilterChange}
-      />
+      <StyledRow>
+        <Space size={"small"}>
+          <Select
+            dropdownStyle={{
+              maxHeight: 300,
+              overflow: "auto",
+              position: "fixed",
+              border: "1px solid var(--primary-dark-color)",
+            }}
+            defaultValue={FilterBy.RECEIVES}
+            options={[
+              { value: FilterBy.RECEIVES, label: "Receivers" },
+              { value: FilterBy.SENDS, label: "Senders" },
+            ]}
+            onSelect={handleFilterChange}
+            value={filterBy}
+          />
+
+          <Select
+            value={type}
+            onChange={setType}
+            options={[
+              { value: "month", label: "Month" },
+              { value: "quarter", label: "Quarter" },
+              { value: "year", label: "Year" },
+            ]}
+            dropdownStyle={{
+              maxHeight: 300,
+              overflow: "auto",
+              position: "fixed",
+              border: "1px solid var(--primary-dark-color)",
+            }}
+          />
+          <PickerWithType type={type} />
+        </Space>
+        <RockStarsClearButton resetFilters={resetFilters} />
+      </StyledRow>
       <h1>ROCK STARS</h1>
       <h4>
         {filterBy === FilterBy.RECEIVES
