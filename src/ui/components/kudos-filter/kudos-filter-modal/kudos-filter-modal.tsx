@@ -213,7 +213,7 @@ export function KudosFilterModal({
               showSearch
               options={options}
               disabled={currentFilterType !== "sender"}
-              placeholder="Choose Giver"
+              placeholder="Choose sender"
               optionFilterProp="children"
               optionRender={(option) => (
                 <OptionContainer>

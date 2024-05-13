@@ -37,6 +37,7 @@ export const StyledTopRockstarColumn = styled.div<{ $rank: number }>`
     font-size: ${(props) => (props.$rank === 1 ? 22 : 18)}px;
     font-weight: ${(props) => (props.$rank === 1 ? 700 : 500)};
     margin-bottom: 10px;
+    text-align: center;
   }
 `;
 
