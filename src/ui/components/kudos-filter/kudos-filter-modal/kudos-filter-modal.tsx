@@ -196,14 +196,7 @@ export function KudosFilterModal({
                   </OptionDetails>
                 </OptionContainer>
               )}
-              filterOption={(input, option) =>
-                (typeof option?.label === "string" &&
-                  option?.label?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0) ||
-                (typeof option?.value === "string" &&
-                  option?.value?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0)
-              }
+              filterOption={false}
               notFoundContent="No Person Found!"
             />
           </Form.Item>
@@ -236,14 +229,7 @@ export function KudosFilterModal({
                   </OptionDetails>
                 </OptionContainer>
               )}
-              filterOption={(input, option) =>
-                (typeof option?.label === "string" &&
-                  option?.label?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0) ||
-                (typeof option?.value === "string" &&
-                  option?.value?.toLowerCase().indexOf(input.toLowerCase()) >=
-                    0)
-              }
+              filterOption={false}
             />
           </Form.Item>
         </StyledForm>

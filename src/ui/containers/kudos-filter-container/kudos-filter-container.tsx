@@ -93,7 +93,7 @@ export function FilterModalContainer({
     form.resetFields();
   };
 
-  const getReceiverOrGiverName = () =>
+  const getReceiverOrSenderName = () =>
     listUsers.find(
       (user) =>
         user.id === submittedDataFilter.sender ||
@@ -142,15 +142,15 @@ export function FilterModalContainer({
           {submittedFilterType === "receiver" &&
             submittedDataFilter.receiver && (
               <StyledData>
-                Receiver: {getReceiverOrGiverName()?.firstName}{" "}
-                {getReceiverOrGiverName()?.lastName}
+                Receiver: {getReceiverOrSenderName()?.firstName}{" "}
+                {getReceiverOrSenderName()?.lastName}
                 <StyledCloseOutlined onClick={clearDataFilter} />
               </StyledData>
             )}
           {submittedFilterType === "sender" && submittedDataFilter.sender && (
             <StyledData>
-              Giver: {getReceiverOrGiverName()?.firstName}{" "}
-              {getReceiverOrGiverName()?.lastName}
+              Sender: {getReceiverOrSenderName()?.firstName}{" "}
+              {getReceiverOrSenderName()?.lastName}
               <StyledCloseOutlined onClick={clearDataFilter} />
             </StyledData>
           )}
