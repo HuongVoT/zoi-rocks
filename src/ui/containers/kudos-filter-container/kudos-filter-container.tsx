@@ -34,7 +34,8 @@ export function FilterModalContainer({
   const [currentFilterType, setCurrentFilterType] = useState("");
   const [submittedFilterType, setSubmittedFilterType] = useState("");
   const options: SelectOptionProps[] = [];
-  const [email, setEmail] = useState("");
+  const [receiverEmail, setReceiverEmail] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
   const dispatch = useAppDispatch();
 
   const listUsers = useAppSelector((state) => state.user.users);
@@ -47,6 +48,12 @@ export function FilterModalContainer({
 
   const handleCancel = () => {
     setOpen(false);
+    setCurrentFilterType(submittedFilterType);
+    form.resetFields(
+      ["date", "category", "receiver", "sender"].filter(
+        (field) => field !== submittedFilterType,
+      ),
+    );
   };
 
   const handleSubmit = () => {
@@ -93,12 +100,18 @@ export function FilterModalContainer({
     form.resetFields();
   };
 
-  const getReceiverOrSenderName = () =>
-    listUsers.find(
-      (user) =>
-        user.id === submittedDataFilter.sender ||
-        user.id === submittedDataFilter.receiver,
-    );
+  // const handleResetListUser = () => {
+  //   dispatch(
+  //     userAction.listUsers({
+  //       limit: DefaultParams.LIST_USERS_LIMIT,
+  //     }),
+  //   );
+  // };
+
+  const getReceiverName = () =>
+    listUsers.find((user) => user.id === submittedDataFilter.receiver);
+  const getSenderName = () =>
+    listUsers.find((user) => user.id === submittedDataFilter.sender);
 
   listUsers.forEach((user) => {
     options.push({
@@ -110,13 +123,26 @@ export function FilterModalContainer({
   });
 
   useEffect(() => {
-    dispatch(
-      userAction.listUsers({
-        limit: DefaultParams.LIST_USERS_LIMIT,
-        email: email,
-      }),
-    );
-  }, [dispatch, email]);
+    if (receiverEmail) {
+      dispatch(
+        userAction.listUsers({
+          limit: DefaultParams.LIST_USERS_LIMIT,
+          email: receiverEmail,
+        }),
+      );
+    }
+  }, [dispatch, receiverEmail]);
+
+  useEffect(() => {
+    if (senderEmail) {
+      dispatch(
+        userAction.listUsers({
+          limit: DefaultParams.LIST_USERS_LIMIT,
+          email: senderEmail,
+        }),
+      );
+    }
+  }, [dispatch, senderEmail]);
 
   return (
     <>
@@ -142,15 +168,14 @@ export function FilterModalContainer({
           {submittedFilterType === "receiver" &&
             submittedDataFilter.receiver && (
               <StyledData>
-                Receiver: {getReceiverOrSenderName()?.firstName}{" "}
-                {getReceiverOrSenderName()?.lastName}
+                Receiver: {getReceiverName()?.firstName}{" "}
+                {getReceiverName()?.lastName}
                 <StyledCloseOutlined onClick={clearDataFilter} />
               </StyledData>
             )}
           {submittedFilterType === "sender" && submittedDataFilter.sender && (
             <StyledData>
-              Sender: {getReceiverOrSenderName()?.firstName}{" "}
-              {getReceiverOrSenderName()?.lastName}
+              Sender: {getSenderName()?.firstName} {getSenderName()?.lastName}
               <StyledCloseOutlined onClick={clearDataFilter} />
             </StyledData>
           )}
@@ -161,11 +186,13 @@ export function FilterModalContainer({
         form={form}
         open={open}
         handleCancel={handleCancel}
+        // handleResetListUser={handleResetListUser}
         currentFilterType={currentFilterType}
         setCurrentFilterType={setCurrentFilterType}
         handleSubmit={handleSubmit}
         options={options}
-        setEmail={setEmail}
+        setReceiverEmail={setReceiverEmail}
+        setSenderEmail={setSenderEmail}
       />
     </>
   );

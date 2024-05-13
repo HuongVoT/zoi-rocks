@@ -14,7 +14,7 @@ export const StyledReceiverName = styled.p`
   font-weight: 700;
 `;
 
-export const StyledGiverName = styled.p`
+export const StyledSenderName = styled.p`
   font-weight: 600;
 `;
 
