@@ -1,5 +1,4 @@
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar, notification } from "antd";
+import { notification } from "antd";
 import { useEffect, useState } from "react";
 import { RootState, useAppDispatch, userAction } from "../../../redux";
 import { DefaultParams, ActionStatus } from "../../../utils";
@@ -15,7 +14,7 @@ export interface SelectOptionProps {
   label: string;
   email: string;
   value: string;
-  image: string | JSX.Element;
+  image: string | null;
 }
 export interface KudosFormSubmitData {
   kudos: CreateKudosDTO;
@@ -42,7 +41,7 @@ export function KudosFormContainer({
       label: user.firstName + " " + user.lastName,
       email: user.email,
       value: user.id,
-      image: user.image || <Avatar icon={<UserOutlined />} />,
+      image: user.image,
     });
   });
 

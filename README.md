@@ -1,4 +1,4 @@
-# Zoi FeedBack Frontend
+# Zoi Rocks Frontend
 
 ## Naming Convention
 

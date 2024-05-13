@@ -1,9 +1,10 @@
-import { Form, Image } from "antd";
+import { Avatar, Form, Image } from "antd";
 import _ from "lodash";
 import { SelectOptionProps } from "../../../containers";
 import { StyledSelect } from "../kudos-style";
 import { RootState } from "../../../../redux";
 import { useSelector } from "react-redux";
+import { UserOutlined } from "@ant-design/icons";
 
 interface KudosWhoProps {
   options: SelectOptionProps[];
@@ -42,7 +43,11 @@ export function KudosWho({ options, setEmail }: KudosWhoProps) {
               alignItems: "center",
             }}
           >
-            <Image src={option.data.image} preview={false} width={30} />
+            {option.data.image ? (
+              <Image src={option.data.image} preview={false} width={30} />
+            ) : (
+              <Avatar icon={<UserOutlined />} />
+            )}
 
             <div
               style={{
@@ -58,12 +63,7 @@ export function KudosWho({ options, setEmail }: KudosWhoProps) {
         )}
         loading={isLoading === "PENDING"}
         onSearch={inputSearchEmail}
-        filterOption={(input, option) =>
-          (typeof option?.label === "string" &&
-            option?.label?.toLowerCase().indexOf(input.toLowerCase()) >= 0) ||
-          (typeof option?.value === "string" &&
-            option?.value?.toLowerCase().indexOf(input.toLowerCase()) >= 0)
-        }
+        filterOption={false}
         notFoundContent="No person found"
       />
     </Form.Item>
