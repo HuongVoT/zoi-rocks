@@ -16,6 +16,6 @@ export const StyledKudosListContainer = styled.div`
 export const StyledEmptyContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: 15rem;
   height: 100%;
 `;
