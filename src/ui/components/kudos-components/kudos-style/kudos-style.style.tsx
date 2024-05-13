@@ -11,7 +11,7 @@ export const StyledTreeSelect = styled(TreeSelect)`
   height: 40px;
   border-radius: 10px;
   .ant-select-selection-placeholder {
-    font-size: 12px;
+    font-size: 13px;
   }
 `;
 
@@ -20,7 +20,7 @@ export const StyledSelect = styled(Select)`
   height: 40px;
   border-radius: 10px;
   .ant-select-selection-placeholder {
-    font-size: 12px;
+    font-size: 13px;
   }
 `;
 
@@ -32,7 +32,7 @@ export const KudosContentWrapper = styled.div`
   }
 
   textarea {
-    font-size: 12px !important;
+    font-size: 13px !important;
     height: 100px !important;
     resize: none;
     box-shadow: none;

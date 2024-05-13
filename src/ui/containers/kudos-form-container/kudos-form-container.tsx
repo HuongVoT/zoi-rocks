@@ -1,4 +1,4 @@
-import { notification } from "antd";
+import { notification, Form } from "antd";
 import { useEffect, useState } from "react";
 import { RootState, useAppDispatch, userAction } from "../../../redux";
 import { DefaultParams, ActionStatus } from "../../../utils";
@@ -29,6 +29,7 @@ export function KudosFormContainer({
 }) {
   const [email, setEmail] = useState("");
   const [api, contextHolder] = notification.useNotification();
+  const [form] = Form.useForm();
 
   const dispatch = useAppDispatch();
   const listUsers = useAppSelector((state: RootState) => state.user.users);
@@ -71,6 +72,8 @@ export function KudosFormContainer({
       });
       dispatch(kudosSlice.resetKudos());
       handleCloseModal();
+      form.resetFields();
+      setEmail("");
     } else if (kudosState.createKudosStatus === ActionStatus.ERROR) {
       api.error({
         message: "Failed to send kudos!",
@@ -84,6 +87,7 @@ export function KudosFormContainer({
     kudosState.createKudosStatus,
     kudosState.error.message,
     handleCloseModal,
+    form,
   ]);
 
   return (
@@ -95,10 +99,10 @@ export function KudosFormContainer({
         open={open}
         getContainer={false}
         mask={false}
-        destroyOnClose={true}
         footer={null}
       >
         <KudosForm
+          form={form}
           setEmail={setEmail}
           options={options}
           handleCloseModal={handleCloseModal}
