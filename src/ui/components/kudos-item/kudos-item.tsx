@@ -2,7 +2,7 @@ import { Col, Row } from "antd";
 import {
   StyledKudosItem,
   StyledReceiverName,
-  StyledGiverName,
+  StyledSenderName,
   StyledFlexEndDiv,
   StyledKudosItemContent,
   StyledCategoiryRow,
@@ -48,7 +48,7 @@ export const KudosItem = ({ kudos }: KudosItemProps) => {
           <Col span={7}>
             <StyledFlexEndDiv>
               <p>From</p>
-              <StyledGiverName>{kudos.sender.name}</StyledGiverName>
+              <StyledSenderName>{kudos.sender.name}</StyledSenderName>
             </StyledFlexEndDiv>
           </Col>
         </StyledCategoiryRow>

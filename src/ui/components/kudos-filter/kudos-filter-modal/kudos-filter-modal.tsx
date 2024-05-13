@@ -15,7 +15,7 @@ import { Form, FormInstance, TimeRangePickerProps, Image } from "antd";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux";
 import _ from "lodash";
-import { IMAGE_FAULT_TOLERANT } from "../../../../utils";
+import { ActionStatus, IMAGE_FAULT_TOLERANT } from "../../../../utils";
 
 const categories = [
   {
@@ -102,36 +102,49 @@ export function KudosFilterModal({
   form,
   handleCancel,
   handleSubmit,
+  // handleResetListUser,
   open,
   currentFilterType,
   setCurrentFilterType,
   options,
-  setEmail,
+  setReceiverEmail,
+  setSenderEmail,
 }: {
   form: FormInstance;
   handleCancel: () => void;
+  // handleResetListUser: () => void;
   handleSubmit: () => void;
   open: boolean;
   currentFilterType: string;
   setCurrentFilterType: React.Dispatch<React.SetStateAction<string>>;
   options: SelectOptionProps[];
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setReceiverEmail: React.Dispatch<React.SetStateAction<string>>;
+  setSenderEmail: React.Dispatch<React.SetStateAction<string>>;
 }) {
-  const inputSearchEmail = _.debounce((value: string) => {
-    setEmail(value);
+  const inputSearchReceiverEmail = _.debounce((value: string) => {
+    setReceiverEmail(value);
   }, 500);
 
-  const isLoading = useSelector(
+  const inputSearchSenderEmail = _.debounce((value: string) => {
+    setSenderEmail(value);
+  }, 500);
+
+  const listUsersStatus = useSelector(
     (state: RootState) => state.user.listUsersStatus,
   );
+
+  const isLoading = listUsersStatus === ActionStatus.PENDING;
+
+  const isLoadingReceiver = isLoading && currentFilterType === "receiver";
+  const isLoadingSender = isLoading && currentFilterType === "sender";
+
   return (
     <StyledFilterModal
-      onCancel={handleCancel}
       open={open}
       title="Kudos Album Filter Utility"
       footer={
         <KudosFilterFooter
-          handleCloseDrawer={handleCancel}
+          handleCancel={handleCancel}
           handleSubmit={handleSubmit}
         />
       }
@@ -180,8 +193,11 @@ export function KudosFilterModal({
               options={options}
               disabled={currentFilterType !== "receiver"}
               placeholder="Choose Receiver"
-              loading={isLoading === "PENDING"}
-              onSearch={inputSearchEmail}
+              loading={isLoadingReceiver}
+              onSearch={inputSearchReceiverEmail}
+              // onBlur={() => {
+              //   handleResetListUser();
+              // }}
               optionRender={(option) => (
                 <OptionContainer>
                   <Image
@@ -212,8 +228,13 @@ export function KudosFilterModal({
               dropdownAlign={{ points: ["tr", "br"] }}
               showSearch
               options={options}
+              onSearch={inputSearchSenderEmail}
+              // onBlur={() => {
+              //   handleResetListUser();
+              // }}
               disabled={currentFilterType !== "sender"}
-              placeholder="Choose sender"
+              placeholder="Choose Sender"
+              loading={isLoadingSender}
               optionFilterProp="children"
               optionRender={(option) => (
                 <OptionContainer>

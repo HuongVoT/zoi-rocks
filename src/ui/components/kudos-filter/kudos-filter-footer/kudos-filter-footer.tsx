@@ -4,16 +4,16 @@ import {
 } from "./kudos-filter-footer.style";
 
 export function KudosFilterFooter({
-  handleCloseDrawer,
+  handleCancel,
   handleSubmit,
 }: {
-  handleCloseDrawer: () => void;
+  handleCancel: () => void;
   handleSubmit: () => void;
 }) {
   return (
     <>
       <StyledKudosFilterFooterWrapper>
-        <StyledKudosFooterButton size="large" onClick={handleCloseDrawer}>
+        <StyledKudosFooterButton size="large" onClick={handleCancel}>
           Cancel
         </StyledKudosFooterButton>
         <StyledKudosFooterButton

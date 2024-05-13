@@ -15,7 +15,7 @@ export const StyledContent = styled(Layout.Content)`
 
 export const StyledBody = styled.div`
   height: 87vh;
-  overflow: auto;
+  overflow: hidden;
   padding: 0 1rem;
   margin-left: 25px;
   margin-right: 100px;

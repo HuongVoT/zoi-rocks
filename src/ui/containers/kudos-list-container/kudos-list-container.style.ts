@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { List } from "antd";
+import { Divider, List, Skeleton } from "antd";
 
 export const StyledKudosList = styled(List)`
   padding: 1rem 0;
@@ -18,4 +18,13 @@ export const StyledEmptyContainer = styled.div`
   justify-content: center;
   padding-top: 15rem;
   height: 100%;
+`;
+
+export const StyledSkeleton = styled(Skeleton)`
+  padding-bottom: 50px;
+`;
+
+export const StyledDivider = styled(Divider)`
+  padding-bottom: 40px;
+  margin: 0;
 `;

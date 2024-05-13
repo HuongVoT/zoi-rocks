@@ -1,11 +1,13 @@
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useCallback, useEffect, useState } from "react";
-import { Divider, Empty, Skeleton, Spin, notification } from "antd";
+import { Empty, Spin, notification } from "antd";
 
 import {
   StyledKudosList,
   StyledKudosListContainer,
   StyledEmptyContainer,
+  StyledDivider,
+  StyledSkeleton,
 } from "./kudos-list-container.style";
 import { KudosItem } from "../../components";
 import { useAppDispatch, useAppSelector, kudosAction } from "../../../redux";
@@ -117,15 +119,10 @@ export const KudosListContainer = () => {
               dataLength={listKudos.length}
               next={loadMore}
               hasMore={isPagination}
-              loader={
-                <Skeleton
-                  avatar
-                  paragraph={{ rows: 2 }}
-                  active
-                  style={{ paddingBottom: "50px" }}
-                />
+              loader={<StyledSkeleton avatar paragraph={{ rows: 2 }} active />}
+              endMessage={
+                <StyledDivider plain>No older kudos! 😘</StyledDivider>
               }
-              endMessage={<Divider plain>No older kudos! 😘</Divider>}
               scrollableTarget="scrollableList"
             >
               <StyledKudosList
