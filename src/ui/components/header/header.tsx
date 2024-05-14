@@ -5,11 +5,7 @@ import { ProfileContainer } from "../../containers/profile-container/profile-con
 export function Header() {
   const location = useLocation();
   const pathName = location.pathname;
-  let pageName = "";
-  if (pathName === "/kudos-album" || pathName === "/rock-stars") {
-    pageName = pathName.replace(/\/|-/g, " ");
-  }
-
+  const pageName = pathName.replace(/\/|-/g, " ");
   return (
     <StyledHeader>
       <StyledPageName>{pageName}</StyledPageName>

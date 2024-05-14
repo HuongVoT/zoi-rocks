@@ -18,8 +18,8 @@ function App() {
           <Route path="kudos-album" element={<KudosAlbumPage />} />
           <Route path="rock-stars" element={<RockStarsPage />} />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
