@@ -17,7 +17,7 @@ export const StyledRockStarContainer = styled.div`
 
   .ant-select-selector {
     border-color: var(--primary-dark-color) !important;
-    width: 130px !important;
+    width: 150px !important;
     height: 40px !important;
     box-shadow: none !important;
   }

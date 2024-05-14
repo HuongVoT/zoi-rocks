@@ -17,7 +17,7 @@ import type { DatePickerProps } from "antd";
 import { Dayjs } from "dayjs";
 import { ActionStatus } from "../../../utils";
 
-type PickerType = "month" | "quarter" | "year";
+type PickerType = "month" | "quarter" | "year" | undefined;
 
 export interface RockStar {
   id: string;
@@ -32,12 +32,12 @@ enum FilterBy {
 }
 
 export function RockStarsContainer() {
-  const [type, setType] = useState<PickerType>("month");
+  const [type, setType] = useState<PickerType>(undefined);
   const [filterBy, setFilterBy] = useState<FilterBy>(FilterBy.RECEIVES);
   const [date, setDate] = useState<Dayjs | null>(null);
 
   const resetFilters = () => {
-    setType("month");
+    setType(undefined);
     setFilterBy(FilterBy.RECEIVES);
     setDate(null);
   };
@@ -117,6 +117,7 @@ export function RockStarsContainer() {
           <Select
             value={type}
             onChange={setType}
+            placeholder="Select period"
             options={[
               { value: "month", label: "Month" },
               { value: "quarter", label: "Quarter" },
@@ -129,7 +130,7 @@ export function RockStarsContainer() {
               border: "1px solid var(--primary-dark-color)",
             }}
           />
-          <PickerWithType type={type} />
+          {type && <PickerWithType type={type} />}
         </Space>
         <RockStarsClearButton resetFilters={resetFilters} />
       </StyledRow>
