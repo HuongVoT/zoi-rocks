@@ -6,7 +6,6 @@ import { userAction } from "../action";
 import { models } from "../../domain";
 import { ListUsersOutputDTO } from "../../domain/dtos";
 import { ActionStatus } from "../../utils";
-import { dtos } from "../../domain";
 
 interface UserState {
   users: models.User[];
@@ -16,7 +15,7 @@ interface UserState {
   };
   pagination: {
     limit: number;
-    lastKey?: dtos.UsersLastKey;
+    lastKey?: string;
   };
 }
 

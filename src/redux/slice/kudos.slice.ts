@@ -3,12 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "../store";
 import { kudosAction } from "../action";
-import { models } from "../../domain";
-import {
-  KudosLastKey,
-  ListKudosOutputDTO,
-  CreateKudosOutputDTO,
-} from "../../domain/dtos";
+import { models, dtos } from "../../domain";
 import { ActionStatus, DefaultParams } from "../../utils";
 
 interface KudosState {
@@ -20,7 +15,7 @@ interface KudosState {
   };
   pagination: {
     limit: number;
-    lastKey?: KudosLastKey;
+    lastKey?: string;
   };
   isLoadingMore: boolean;
 }
@@ -56,7 +51,7 @@ export const kudosSlice = createSlice({
       (
         state,
         action: PayloadAction<{
-          kudos: ListKudosOutputDTO;
+          kudos: dtos.ListKudosOutputDTO;
           isLoadingMore: boolean;
         }>,
       ) => {
@@ -78,8 +73,8 @@ export const kudosSlice = createSlice({
     });
     builder.addCase(
       kudosAction.createKudos.fulfilled,
-      (state, action: PayloadAction<CreateKudosOutputDTO>) => {
-        state.kudos = [action.payload.kudos, ...state.kudos];
+      (state, action: PayloadAction<models.Kudos>) => {
+        state.kudos = [action.payload, ...state.kudos];
         state.createKudosStatus = ActionStatus.SUCCESS;
         state.error = {};
       },
