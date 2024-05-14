@@ -1,31 +1,34 @@
 import { AxiosError, AxiosInstance } from "axios";
-import { ApiResponse } from "../types";
 import { IKudosRepository } from "../domain/repositories";
-import {
-  ListKudosDTO,
-  ListKudosOutputDTO,
-  CreateKudosDTO,
-  CreateKudosOutputDTO,
-} from "../domain/dtos";
+import { dtos, models } from "../domain";
 import { KudosApiError } from "../utils";
 
 export class KudosApi implements IKudosRepository {
   constructor(private readonly axios: AxiosInstance) {}
 
-  async list(dto: ListKudosDTO): Promise<ListKudosOutputDTO> {
+  async list(dto: dtos.ListKudosDTO): Promise<dtos.ListKudosOutputDTO> {
     try {
       const { limit, lastKey, filter } = dto;
-      const params = new URLSearchParams({
-        limit: limit.toString(),
-        lastKey: lastKey ? JSON.stringify(lastKey) : "",
+      const params = {
+        limit,
+        lastKey,
         ...filter,
-      });
+      };
+
       const response = await this.axios.get("/kudos", {
         params,
       });
-      const responseData = response.data as ApiResponse<ListKudosOutputDTO>;
 
-      return responseData.data;
+      const listKudos = response.data?.data.kudos.map(
+        (kudosProps: models.KudosProps) => {
+          return new models.Kudos(kudosProps);
+        },
+      );
+
+      return {
+        kudos: listKudos,
+        pagination: response.data?.data.pagination,
+      } as dtos.ListKudosOutputDTO;
     } catch (error) {
       if (error instanceof AxiosError) {
         throw new KudosApiError(error.response?.data?.error.message);
@@ -34,16 +37,18 @@ export class KudosApi implements IKudosRepository {
     }
   }
 
-  async create(dto: CreateKudosDTO): Promise<CreateKudosOutputDTO> {
+  async create(dto: dtos.CreateKudosDTO): Promise<models.Kudos> {
     try {
       const response = await this.axios.post("/kudos", dto, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const responseData = response.data as ApiResponse<CreateKudosOutputDTO>;
 
-      return responseData.data;
+      const kudosProps = response.data?.data as models.KudosProps;
+      const kudos = new models.Kudos(kudosProps);
+
+      return kudos;
     } catch (error) {
       if (error instanceof AxiosError) {
         throw new KudosApiError(error.response?.data?.error.message);

@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { kudosApi } from "../../di";
-import { CreateKudosDTO, ListKudosDTO } from "../../domain/dtos";
+import { dtos } from "../../domain";
 
 export const listKudos = createAsyncThunk(
   "kudos/list",
   async (
-    payload: { dto: ListKudosDTO; isLoadingMore: boolean },
+    payload: { dto: dtos.ListKudosDTO; isLoadingMore: boolean },
     { rejectWithValue },
   ) => {
     try {
@@ -23,11 +23,11 @@ export const listKudos = createAsyncThunk(
 
 export const createKudos = createAsyncThunk(
   "kudos/create",
-  async (dto: CreateKudosDTO, { rejectWithValue }) => {
+  async (dto: dtos.CreateKudosDTO, { rejectWithValue }) => {
     try {
-      const kudos = await kudosApi.create(dto);
+      const createdKudos = await kudosApi.create(dto);
 
-      return kudos;
+      return createdKudos;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
