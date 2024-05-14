@@ -132,7 +132,9 @@ export function RockStarsContainer() {
           />
           {type && <PickerWithType type={type} />}
         </Space>
-        <RockStarsClearButton resetFilters={resetFilters} />
+        {type || filterBy !== FilterBy.RECEIVES ? (
+          <RockStarsClearButton resetFilters={resetFilters} />
+        ) : null}
       </StyledRow>
       <h1>ROCK STARS</h1>
       <h4>
