@@ -1,5 +1,5 @@
+import { Popover } from "antd";
 import { Header } from "antd/es/layout/layout";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const StyledHeader = styled(Header)`
@@ -16,9 +16,23 @@ export const StyledPageName = styled.h2`
   line-height: var(--header-height);
 `;
 
-export const StyledUserAvatar = styled(Link)`
+export const StyledUserMiniProfile = styled(Popover)`
   position: absolute;
-  top: 10px;
-  right: 30px;
-  color: #000;
+  top: 24px;
+  right: 24px;
+  height: min-content;
+  overlayinnerstyle: {
+    background-color: var(--primary-color);
+  }
+  .ant-popover-inner-content {
+    background-color: var(--primary-color) !important;
+    height: 180px;
+    width: 200px;
+    padding: 0;
+  }
+`;
+
+export const StyledUserMiniProfileFooter = styled.div`
+  height: 30px;
+  background-color: var(--primary-color);
 `;
