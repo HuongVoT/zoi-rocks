@@ -1,7 +1,6 @@
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar } from "antd";
 import { useLocation } from "react-router-dom";
-import { StyledHeader, StyledPageName, StyledUserAvatar } from "./header.style";
+import { StyledHeader, StyledPageName } from "./header.style";
+import { ProfileContainer } from "../../containers/profile-container/profile-container";
 
 export function Header() {
   const location = useLocation();
@@ -14,9 +13,7 @@ export function Header() {
   return (
     <StyledHeader>
       <StyledPageName>{pageName}</StyledPageName>
-      <StyledUserAvatar to="user">
-        <Avatar size={50} icon={<UserOutlined />} />
-      </StyledUserAvatar>
+      <ProfileContainer />
     </StyledHeader>
   );
 }
