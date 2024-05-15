@@ -1,10 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { Amplify } from "aws-amplify";
+import { amplifyConfig } from "./configs";
 import "./App.css";
-import { KudosAlbumPage, NotFoundPage } from "./pages";
-import { DefaultLayout, PrivateRoute } from "./ui";
-import { RockStarsPage } from "./pages";
-import { LoginPage } from "./pages/login-page";
-import { LoginLayout } from "./ui/layouts/login-layout";
+import { DefaultLayout, LoginLayout, PrivateRoute } from "./ui";
+import {
+  KudosAlbumPage,
+  NotFoundPage,
+  RockStarsPage,
+  LoginPage,
+} from "./pages";
+
+Amplify.configure(amplifyConfig);
 
 function App() {
   return (
