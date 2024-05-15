@@ -1,13 +1,15 @@
-import { Navigate, useLocation } from "react-router-dom";
 import React from "react";
+import { Navigate } from "react-router-dom";
 
-export const PrivateRoute: React.FC = () => {
-  const isAuthenticated = false;
-  const location = useLocation();
+interface PrivateRouteProps {
+  children: React.ReactNode;
+}
 
-  return isAuthenticated ? (
-    <Navigate to="/kudos-album" replace />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} />
-  );
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const isAuthenticated = true;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 };

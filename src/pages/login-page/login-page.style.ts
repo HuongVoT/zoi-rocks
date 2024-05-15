@@ -16,7 +16,7 @@ export const StyledHeader = styled.div`
   margin-bottom: 2rem;
 `;
 
-export const StyledTitle = styled.h1`
+export const StyledTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
