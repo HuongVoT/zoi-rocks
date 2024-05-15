@@ -7,3 +7,4 @@ export * from "./top-rock-star-column";
 export * from "./top-rock-stars";
 export * from "./rock-star-list";
 export * from "./rock-star-item";
+export * from "./rock-stars-button";
