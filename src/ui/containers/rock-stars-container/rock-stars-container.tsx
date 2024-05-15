@@ -24,6 +24,7 @@ export interface RockStar {
   name: string;
   avatar: string;
   kudosCount: number;
+  userRank?: number;
 }
 
 enum FilterBy {
@@ -35,15 +36,21 @@ export function RockStarsContainer() {
   const [type, setType] = useState<PickerType>(undefined);
   const [filterBy, setFilterBy] = useState<FilterBy>(FilterBy.RECEIVES);
   const [date, setDate] = useState<Dayjs | null>(null);
+  const [period, setPeriod] = useState<string | string[]>("");
 
   const resetFilters = () => {
     setType(undefined);
     setFilterBy(FilterBy.RECEIVES);
     setDate(null);
+    setPeriod("");
   };
 
-  const handleFilterPeriodChange: DatePickerProps["onChange"] = (date) => {
+  const handleFilterPeriodChange: DatePickerProps["onChange"] = (
+    date,
+    dateString,
+  ) => {
     setDate(date);
+    setPeriod(dateString);
   };
 
   const PickerWithType = ({ type }: { type: PickerType }) => {
@@ -122,11 +129,11 @@ export function RockStarsContainer() {
       leaderboardAction.getLeadeboardRockstars({
         sortBy: filterBy,
         //TODO: CHANGE TO THE CORRECT ID
-        currentUserID: "e3f0655b-2f0c-461e-9297-61cc25216655",
+        currentUserID: "1d23d8c1-e48e-4661-86f7-80f957a8a8f4",
         period: period,
       }),
     );
-  }, [dispatch, filterBy]);
+  }, [dispatch, filterBy, period]);
 
   const top3RockStars = rockStars.slice(0, 3);
   const remainingRockStars = rockStars.slice(3);
@@ -152,7 +159,10 @@ export function RockStarsContainer() {
 
           <Select
             value={type}
-            onChange={setType}
+            onChange={(value) => {
+              setDate(null);
+              setType(value);
+            }}
             placeholder="Select period"
             options={[
               { value: "month", label: "Month" },
