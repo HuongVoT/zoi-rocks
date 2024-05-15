@@ -31,19 +31,29 @@ export class UserApi implements IUserRepository {
     }
   }
 
-  async listTopUsers(dto: dtos.ListTopUsersDTO): Promise<models.User[]> {
+  async listTopUsers(
+    dto: dtos.ListTopUsersDTO,
+  ): Promise<dtos.ListTopUsersOutputDTO> {
     try {
       const response = await this.axios.get("/leaderboard", {
         params: dto,
       });
 
-      const users = response.data?.data.users.map(
-        (userProps: models.UserProps) => {
-          return new models.User(userProps);
+      const topTenUsers = response.data?.data.users.map(
+        (userProps: models.LeaderboardProps) => {
+          return new models.Leaderboard(userProps);
         },
       );
 
-      return users;
+      const currentUser = response.data?.data.currentUser
+        ? new models.Leaderboard(response.data?.data.currentUser)
+        : undefined;
+
+      return {
+        topTenUsers,
+        currentUser,
+        currentUserRank: response.data?.data.currentUserRank,
+      } as dtos.ListTopUsersOutputDTO;
     } catch (error) {
       if (error instanceof AxiosError) {
         throw new UserApiError(error.response?.data?.error.message);

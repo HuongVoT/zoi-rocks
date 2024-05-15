@@ -7,7 +7,12 @@ import { models } from "../../domain";
 import { ActionStatus } from "../../utils";
 
 interface LeaderboardState {
-  users: models.User[];
+  topTenUsers: models.Leaderboard[];
+  currentUser: models.Leaderboard | undefined;
+  currentUserRank: {
+    isInTopTen: boolean;
+    userRank: number;
+  };
   leaderboardStatus: ActionStatus;
   error: {
     message?: string;
@@ -15,7 +20,12 @@ interface LeaderboardState {
 }
 
 const initialState: LeaderboardState = {
-  users: [],
+  topTenUsers: [],
+  currentUser: undefined,
+  currentUserRank: {
+    isInTopTen: false,
+    userRank: 0,
+  },
   leaderboardStatus: ActionStatus.INIT,
   error: {},
 };
@@ -34,8 +44,10 @@ export const leaderboardSlice = createSlice({
     );
     builder.addCase(
       leaderboardAction.getLeadeboardRockstars.fulfilled,
-      (state, action: PayloadAction<models.User[]>) => {
-        state.users = action.payload;
+      (state, action: PayloadAction<dtos.ListTopUsersOutputDTO>) => {
+        state.topTenUsers = action.payload.topTenUsers;
+        state.currentUser = action.payload.currentUser;
+        state.currentUserRank = action.payload.currentUserRank;
         state.leaderboardStatus = ActionStatus.SUCCESS;
         state.error = {};
       },
@@ -51,5 +63,16 @@ export const leaderboardSlice = createSlice({
   },
 });
 
-export const selectLeaderboard = (state: RootState) => state.leaderboard.users;
+export const selectLeaderboard = (state: RootState) =>
+  state.leaderboard.topTenUsers;
+
+export const selectCurrentUser = (state: RootState) =>
+  state.leaderboard.currentUser;
+
+export const selectIsInTopTen = (state: RootState) =>
+  state.leaderboard.currentUserRank.isInTopTen;
+
+export const selectUserRank = (state: RootState) =>
+  state.leaderboard.currentUserRank.userRank;
+
 export const leaderboardReducer = leaderboardSlice.reducer;

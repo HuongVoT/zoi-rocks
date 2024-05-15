@@ -56,19 +56,57 @@ export function RockStarsContainer() {
     );
   };
 
-  const rockStars = useAppSelector((state) => state.leaderboard.users).map(
-    (rockstar) => {
-      return {
-        id: rockstar.id,
-        name: `${rockstar.firstName} ${rockstar.lastName}`,
-        avatar: rockstar.image || "https://avatar.iran.liara.run/public",
+  const currentUser = useAppSelector((state) => state.leaderboard.currentUser);
+
+  const isInTopTen = useAppSelector(
+    (state) => state.leaderboard.currentUserRank.isInTopTen,
+  );
+
+  const userRank = useAppSelector(
+    (state) => state.leaderboard.currentUserRank.userRank,
+  );
+
+  const rockStars = useAppSelector(
+    (state) => state.leaderboard.topTenUsers,
+  ).map((rockstar) => {
+    return {
+      id: rockstar.id,
+      name: rockstar.name,
+      avatar: rockstar.image || "https://avatar.iran.liara.run/public",
+      kudosCount:
+        filterBy === FilterBy.RECEIVES
+          ? rockstar.totalReceives
+          : rockstar.totalSends,
+    };
+  }) as RockStar[];
+
+  if (currentUser && !isInTopTen) {
+    if (userRank > 11) {
+      rockStars.push({} as RockStar);
+      rockStars.push({
+        id: currentUser.id,
+        name: currentUser.name,
+        avatar: currentUser.image || "https://avatar.iran.liara.run/public",
         kudosCount:
           filterBy === FilterBy.RECEIVES
-            ? rockstar.totalReceives
-            : rockstar.totalSends,
-      };
-    },
-  );
+            ? currentUser.totalReceives
+            : currentUser.totalSends,
+        userRank: userRank,
+      } as RockStar);
+    } else {
+      rockStars.push({
+        id: currentUser.id,
+        name: currentUser.name,
+        avatar: currentUser.image || "https://avatar.iran.liara.run/public",
+        kudosCount:
+          filterBy === FilterBy.RECEIVES
+            ? currentUser.totalReceives
+            : currentUser.totalSends,
+        userRank: userRank,
+      } as RockStar);
+    }
+  }
+
   const leaderBoardStatus = useAppSelector(
     (state) => state.leaderboard.leaderboardStatus,
   );
@@ -83,6 +121,9 @@ export function RockStarsContainer() {
     dispatch(
       leaderboardAction.getLeadeboardRockstars({
         sortBy: filterBy,
+        //TODO: CHANGE TO THE CORRECT ID
+        currentUserID: "e3f0655b-2f0c-461e-9297-61cc25216655",
+        period: period,
       }),
     );
   }, [dispatch, filterBy]);
