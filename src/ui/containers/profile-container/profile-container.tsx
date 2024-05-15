@@ -1,30 +1,27 @@
-// import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar, Button } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { signOut } from "aws-amplify/auth";
 import {
   StyledUserMiniProfile,
   StyledUserMiniProfileFooter,
 } from "../../components/header/header.style";
-import { UserOutlined } from "@ant-design/icons";
 
 export function ProfileContainer() {
-  //   const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  //   const hide = () => {
-  //     setOpen(false);
-  //   };
-
-  //   const handleOpenChange = (newOpen: boolean) => {
-  //     setOpen(newOpen);
-  //   };
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
 
   const content = (
     <div>
-      <p>Name User</p>
-      <p>emailuser</p>
-      <p>Recognition received</p>
-      <p>Recognition given</p>
+      <p>Name</p>
+      <p>Email</p>
+      <p>Receives</p>
+      <p>Sends</p>
       <StyledUserMiniProfileFooter />
-      <Button>LOGOUT</Button>
+      <Button onClick={() => signOut()}>LOGOUT</Button>
     </div>
   );
 
@@ -34,8 +31,8 @@ export function ProfileContainer() {
       title=""
       trigger="click"
       placement="bottomRight"
-      open={true}
-      //   onOpenChange={handleOpenChange}
+      open={open}
+      onOpenChange={handleOpenChange}
       overlayInnerStyle={{ backgroundColor: "var(--primary-color)" }}
     >
       <Avatar size={50} icon={<UserOutlined />} />

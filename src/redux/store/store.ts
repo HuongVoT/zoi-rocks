@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { userSlice, kudosSlice, leaderboardSlice } from "../slice";
+import { userSlice, kudosSlice, leaderboardSlice, authSlice } from "../slice";
 
 export const store = configureStore({
   reducer: {
     user: userSlice.userReducer,
     kudos: kudosSlice.kudosReducer,
     leaderboard: leaderboardSlice.leaderboardReducer,
+    auth: authSlice.authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

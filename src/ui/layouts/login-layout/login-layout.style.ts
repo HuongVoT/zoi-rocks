@@ -1,5 +1,4 @@
 import { Layout } from "antd";
-import { Header } from "antd/es/layout/layout";
 import styled from "styled-components";
 
 export const StyledLoginLayout = styled(Layout)`
@@ -24,7 +23,7 @@ export const StyledBody = styled.div`
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
 `;
 
-export const StyledHeader = styled(Header)`
+export const StyledHeader = styled(Layout.Header)`
   line-height: var(--header-height);
   width: 80vw;
   height: var(--header-height);

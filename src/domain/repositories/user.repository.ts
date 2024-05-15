@@ -4,4 +4,5 @@ import { User } from "../models";
 export interface IUserRepository {
   list(dto: ListUsersDTO): Promise<ListUsersOutputDTO>;
   listTopUsers(dto: ListTopUsersDTO): Promise<User[]>;
+  findById(id: string): Promise<User | null>;
 }
