@@ -42,12 +42,7 @@ export function RockStarsContainer() {
     setDate(null);
   };
 
-  const handleFilterPeriodChange: DatePickerProps["onChange"] = (
-    date,
-    //TODO: Remove the eslint-disable-next-line comment, and use this variable to send the date to the backend
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    dateString,
-  ) => {
+  const handleFilterPeriodChange: DatePickerProps["onChange"] = (date) => {
     setDate(date);
   };
 
