@@ -5,11 +5,17 @@ import { StyledRockStarListWrapper } from "./rock-star-list.style";
 
 interface RockStarListProps {
   rockStars: RockStar[];
+  userRank: number;
+  isInTopTen: boolean;
 }
 
-export function RockStarList({ rockStars }: RockStarListProps) {
+export function RockStarList({
+  rockStars,
+  userRank,
+  isInTopTen,
+}: RockStarListProps) {
   return (
-    <StyledRockStarListWrapper>
+    <StyledRockStarListWrapper userRank={userRank} isInTopTen={isInTopTen}>
       <List
         bordered
         dataSource={rockStars}
@@ -18,7 +24,7 @@ export function RockStarList({ rockStars }: RockStarListProps) {
             <List.Item>
               <RockStarItem
                 rockStar={item}
-                rank={rockStars.indexOf(item) + 4}
+                userRank={rockStars.indexOf(item) + 4}
               />
             </List.Item>
           );

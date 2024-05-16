@@ -32,3 +32,10 @@ export const StyledRankBadge = styled(Badge)`
     font-size: 13px !important;
   }
 `;
+
+export const StyledBadgeDot = styled.div`
+  .ant-badge-status-dot {
+    width: 10px !important;
+    height: 10px !important;
+  }
+`;

@@ -13,7 +13,10 @@ export const StyledColumnWrapper = styled.div`
   }
 `;
 
-export const StyledTopRockstarColumn = styled.div<{ $rank: number }>`
+export const StyledTopRockstarColumn = styled.div<{
+  $rank: number;
+  userRank: number;
+}>`
   padding: 30px 10px;
   width: 100%;
   position: relative;
@@ -32,6 +35,13 @@ export const StyledTopRockstarColumn = styled.div<{ $rank: number }>`
   border-left-color: ${(props) =>
     props.$rank === 3 ? "transparent" : "var(--primary-dark-color)"};
   border-bottom-color: transparent;
+
+  ${(props) =>
+    props.$rank === props.userRank &&
+    `
+    box-shadow: 0 0 4px 4px var(--primary-color);
+    border-color: transparent;
+    `}
 
   span {
     font-size: ${(props) => (props.$rank === 1 ? 22 : 18)}px;

@@ -12,11 +12,13 @@ import top3badge from "./../../../assets/top3badge.png";
 interface TopRockStarColumnProps {
   rank: 1 | 2 | 3;
   rockStarInfo: RockStar;
+  userRank: number;
 }
 
 export function TopRockStarColumn({
   rank = 1,
   rockStarInfo = { id: "", avatar: "", name: "", kudosCount: 0 },
+  userRank,
 }: TopRockStarColumnProps) {
   const badgeImgSrc =
     rank === 1 ? top1badge : rank === 2 ? top2badge : top3badge;
@@ -38,7 +40,7 @@ export function TopRockStarColumn({
           preview={false}
         />
       </div>
-      <StyledTopRockstarColumn $rank={rank}>
+      <StyledTopRockstarColumn userRank={userRank} $rank={rank}>
         <span>{rockStarInfo.name}</span>
         <span>{rockStarInfo.kudosCount}</span>
       </StyledTopRockstarColumn>

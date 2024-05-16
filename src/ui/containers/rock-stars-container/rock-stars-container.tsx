@@ -24,6 +24,7 @@ export interface RockStar {
   name: string;
   avatar: string;
   kudosCount: number;
+  userRank?: number;
 }
 
 enum FilterBy {
@@ -35,15 +36,21 @@ export function RockStarsContainer() {
   const [type, setType] = useState<PickerType>(undefined);
   const [filterBy, setFilterBy] = useState<FilterBy>(FilterBy.RECEIVES);
   const [date, setDate] = useState<Dayjs | null>(null);
+  const [period, setPeriod] = useState<string | string[]>("");
 
   const resetFilters = () => {
     setType(undefined);
     setFilterBy(FilterBy.RECEIVES);
     setDate(null);
+    setPeriod("");
   };
 
-  const handleFilterPeriodChange: DatePickerProps["onChange"] = (date) => {
+  const handleFilterPeriodChange: DatePickerProps["onChange"] = (
+    date,
+    dateString,
+  ) => {
     setDate(date);
+    setPeriod(dateString);
   };
 
   const PickerWithType = ({ type }: { type: PickerType }) => {
@@ -56,19 +63,57 @@ export function RockStarsContainer() {
     );
   };
 
-  const rockStars = useAppSelector((state) => state.leaderboard.users).map(
-    (rockstar) => {
-      return {
-        id: rockstar.id,
-        name: `${rockstar.firstName} ${rockstar.lastName}`,
-        avatar: rockstar.image || "https://avatar.iran.liara.run/public",
+  const currentUser = useAppSelector((state) => state.leaderboard.currentUser);
+
+  const isInTopTen = useAppSelector(
+    (state) => state.leaderboard.currentUserRank.isInTopTen,
+  );
+
+  const userRank = useAppSelector(
+    (state) => state.leaderboard.currentUserRank.userRank,
+  );
+
+  const rockStars = useAppSelector(
+    (state) => state.leaderboard.topTenUsers,
+  ).map((rockstar) => {
+    return {
+      id: rockstar.id,
+      name: rockstar.name,
+      avatar: rockstar.image || "https://avatar.iran.liara.run/public",
+      kudosCount:
+        filterBy === FilterBy.RECEIVES
+          ? rockstar.totalReceives
+          : rockstar.totalSends,
+    };
+  }) as RockStar[];
+
+  if (currentUser && !isInTopTen) {
+    if (userRank > 11) {
+      rockStars.push({} as RockStar);
+      rockStars.push({
+        id: currentUser.id,
+        name: currentUser.name,
+        avatar: currentUser.image || "https://avatar.iran.liara.run/public",
         kudosCount:
           filterBy === FilterBy.RECEIVES
-            ? rockstar.totalReceives
-            : rockstar.totalSends,
-      };
-    },
-  );
+            ? currentUser.totalReceives
+            : currentUser.totalSends,
+        userRank: userRank,
+      } as RockStar);
+    } else {
+      rockStars.push({
+        id: currentUser.id,
+        name: currentUser.name,
+        avatar: currentUser.image || "https://avatar.iran.liara.run/public",
+        kudosCount:
+          filterBy === FilterBy.RECEIVES
+            ? currentUser.totalReceives
+            : currentUser.totalSends,
+        userRank: userRank,
+      } as RockStar);
+    }
+  }
+
   const leaderBoardStatus = useAppSelector(
     (state) => state.leaderboard.leaderboardStatus,
   );
@@ -83,9 +128,12 @@ export function RockStarsContainer() {
     dispatch(
       leaderboardAction.getLeadeboardRockstars({
         sortBy: filterBy,
+        //TODO: CHANGE TO THE CORRECT ID
+        currentUserID: "57a524b5-7637-497b-a629-ab035cfa33b5",
+        period: period,
       }),
     );
-  }, [dispatch, filterBy]);
+  }, [dispatch, filterBy, period]);
 
   const top3RockStars = rockStars.slice(0, 3);
   const remainingRockStars = rockStars.slice(3);
@@ -146,8 +194,14 @@ export function RockStarsContainer() {
         </StyledEmptyContainer>
       ) : (
         <LeaderBoardContainer>
-          {top3RockStars && <TopRockStars topRockStars={top3RockStars} />}
-          <RockStarList rockStars={remainingRockStars} />
+          {top3RockStars && (
+            <TopRockStars userRank={userRank} topRockStars={top3RockStars} />
+          )}
+          <RockStarList
+            rockStars={remainingRockStars}
+            userRank={userRank}
+            isInTopTen={isInTopTen}
+          />
         </LeaderBoardContainer>
       )}
     </StyledRockStarContainer>

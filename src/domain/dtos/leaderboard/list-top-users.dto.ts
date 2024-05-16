@@ -1,9 +1,16 @@
-import type { User } from "../../models";
+import type { LeaderboardUser } from "../../models";
 
 export interface ListTopUsersDTO {
   sortBy: "sends" | "receives";
+  currentUserID: string;
+  period?: string | string[];
 }
 
 export interface ListTopUsersOutputDTO {
-  users: User[];
+  topTenUsers: LeaderboardUser[];
+  currentUser: LeaderboardUser | undefined;
+  currentUserRank: {
+    isInTopTen: boolean;
+    userRank: number;
+  };
 }

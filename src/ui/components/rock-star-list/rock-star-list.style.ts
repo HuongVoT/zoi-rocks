@@ -1,7 +1,10 @@
 import { List } from "antd";
 import styled from "styled-components";
 
-export const StyledRockStarListWrapper = styled(List)`
+export const StyledRockStarListWrapper = styled(List)<{
+  userRank: number;
+  isInTopTen: boolean;
+}>`
   .ant-list-bordered {
     border: 1px solid var(--primary-dark-color);
     border-radius: var(--radius-border);
@@ -11,7 +14,42 @@ export const StyledRockStarListWrapper = styled(List)`
     border-block-end: 1px solid var(--primary-dark-color);
   }
 
-  .ant-list-item:last-child {
+  ${(props) => props.userRank === 2 && ``}
+
+  ${(props) =>
+    props.userRank === 4 &&
+    `
+    .ant-list-item:first-child {
+    box-shadow: 0 0 4px 4px var(--primary-color);
+    border-top-right-radius: var(--radius-border);
+    border-top-left-radius: var(--radius-border);
     border-block-end: none;
-  }
+    }
+  `}
+  ${(props) =>
+    props.userRank === 10 &&
+    `
+    .ant-list-item:last-child {
+      box-shadow: 0 0 4px 4px var(--primary-color);
+      border-bottom-right-radius: var(--radius-border);
+      border-bottom-left-radius: var(--radius-border);
+    }
+  `}
+  ${(props) =>
+    props.isInTopTen &&
+    `
+    .ant-list-item:nth-child(${props.userRank - 3}) {
+      box-shadow: 0 0 4px 4px var(--primary-color);
+      border-block-end: none;
+    }
+    `} 
+    ${(props) =>
+    !props.isInTopTen &&
+    props.userRank !== 0 &&
+    `
+     .ant-list-item:last-child {
+    box-shadow: 0 0 4px 4px var(--primary-color);
+    border-bottom-right-radius: var(--radius-border);
+    border-bottom-left-radius: var(--radius-border);
+  } `}
 `;
