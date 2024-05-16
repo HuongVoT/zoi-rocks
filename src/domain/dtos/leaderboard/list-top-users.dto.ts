@@ -1,4 +1,4 @@
-import type { Leaderboard } from "../../models";
+import type { LeaderboardUser } from "../../models";
 
 export interface ListTopUsersDTO {
   sortBy: "sends" | "receives";
@@ -7,8 +7,8 @@ export interface ListTopUsersDTO {
 }
 
 export interface ListTopUsersOutputDTO {
-  topTenUsers: Leaderboard[];
-  currentUser: Leaderboard | undefined;
+  topTenUsers: LeaderboardUser[];
+  currentUser: LeaderboardUser | undefined;
   currentUserRank: {
     isInTopTen: boolean;
     userRank: number;

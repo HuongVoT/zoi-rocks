@@ -40,13 +40,13 @@ export class UserApi implements IUserRepository {
       });
 
       const topTenUsers = response.data?.data.users.map(
-        (userProps: models.LeaderboardProps) => {
-          return new models.Leaderboard(userProps);
+        (userProps: models.LeaderboardUserProps) => {
+          return new models.LeaderboardUser(userProps);
         },
       );
 
       const currentUser = response.data?.data.currentUser
-        ? new models.Leaderboard(response.data?.data.currentUser)
+        ? new models.LeaderboardUser(response.data?.data.currentUser)
         : undefined;
 
       return {

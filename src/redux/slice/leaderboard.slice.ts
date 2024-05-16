@@ -7,8 +7,8 @@ import { models, dtos } from "../../domain";
 import { ActionStatus } from "../../utils";
 
 interface LeaderboardState {
-  topTenUsers: models.Leaderboard[];
-  currentUser: models.Leaderboard | undefined;
+  topTenUsers: models.LeaderboardUser[];
+  currentUser: models.LeaderboardUser | undefined;
   currentUserRank: {
     isInTopTen: boolean;
     userRank: number;
