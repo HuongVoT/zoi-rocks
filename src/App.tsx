@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Amplify } from "aws-amplify";
+import { fetchAuthSession } from "aws-amplify/auth";
+import { Hub } from "aws-amplify/utils";
 import { amplifyConfig } from "./configs";
 import "./App.css";
 import { DefaultLayout, LoginLayout, PrivateRoute } from "./ui";
@@ -11,6 +13,20 @@ import {
 } from "./pages";
 
 Amplify.configure(amplifyConfig);
+
+Hub.listen("auth", async ({ payload }) => {
+  switch (payload.event) {
+    case "signedIn": {
+      const session = await fetchAuthSession();
+      localStorage.setItem("token", session.tokens?.idToken?.toString() ?? "");
+      break;
+    }
+
+    case "signedOut":
+      localStorage.setItem("token", "");
+      break;
+  }
+});
 
 function App() {
   return (
