@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "../store";
 import { leaderboardAction } from "../action";
-import { models } from "../../domain";
+import { models, dtos } from "../../domain";
 import { ActionStatus } from "../../utils";
 
 interface LeaderboardState {
@@ -47,7 +47,10 @@ export const leaderboardSlice = createSlice({
       (state, action: PayloadAction<dtos.ListTopUsersOutputDTO>) => {
         state.topTenUsers = action.payload.topTenUsers;
         state.currentUser = action.payload.currentUser;
-        state.currentUserRank = action.payload.currentUserRank;
+        state.currentUserRank = {
+          isInTopTen: action.payload.currentUserRank.isInTopTen,
+          userRank: action.payload.currentUserRank.userRank,
+        };
         state.leaderboardStatus = ActionStatus.SUCCESS;
         state.error = {};
       },

@@ -61,4 +61,22 @@ export class UserApi implements IUserRepository {
       throw error;
     }
   }
+
+  async findById(id: string): Promise<models.User | null> {
+    try {
+      const response = await this.axios.get(`/users/${id}`);
+
+      if (!response.data?.data) {
+        return null;
+      }
+
+      const user = new models.User(response.data?.data);
+      return user;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw new UserApiError(error.response?.data?.error.message);
+      }
+      throw error;
+    }
+  }
 }

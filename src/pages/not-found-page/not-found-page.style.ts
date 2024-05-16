@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const StyledNotFoundPage = styled.div`
-  width: 100%;
+  width: 100vw;
   text-align: center;
-  margin-top: 30vh;
   h1 {
     font-weight: bold;
     font-size: 42px;

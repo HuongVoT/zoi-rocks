@@ -84,7 +84,7 @@ export const kudosSlice = createSlice({
       state.error = {};
     });
     builder.addCase(kudosAction.createKudos.rejected, (state, action) => {
-      state.error = { message: "Fail to give kudos!" };
+      state.error = { message: "Failed to give kudos!" };
       state.createKudosStatus = ActionStatus.ERROR;
       state.error.message = action.payload as string;
     });
